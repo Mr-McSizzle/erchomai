@@ -20,11 +20,11 @@ function Rib({
     const SEG = 140;
     for (let i = 0; i <= SEG; i++) {
       const a = (i / SEG) * Math.PI * 2;
-      const r = radius + Math.sin(a * 3 + offset) * 0.22;
+      const r = radius + Math.sin(a * 3 + offset) * 0.1;
       pts.push(
         new THREE.Vector3(
           Math.cos(a) * r,
-          Math.sin(a * 2 + offset) * 0.45 + Math.sin(a) * radius * Math.sin(tilt),
+          Math.sin(a * 2 + offset) * 0.3 + Math.sin(a) * radius * Math.sin(tilt),
           Math.sin(a) * r * Math.cos(tilt),
         ),
       );
@@ -94,8 +94,8 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
       color={PALETTE.titanium}
       emissive={PALETTE.titanium}
       emissiveIntensity={0.06}
-      roughness={0.32}
-      metalness={0.85}
+      roughness={0.28}
+      metalness={0.9}
       transparent
       opacity={0}
     />
@@ -105,10 +105,10 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
     <group ref={group} position={[0, 0.55, 0]}>
       <group ref={shell}>
         {[
-          { radius: 1.35, tilt: 0.15, offset: 0, thickness: 0.022 },
-          { radius: 1.6, tilt: -0.4, offset: 1.1, thickness: 0.016 },
-          { radius: 1.15, tilt: 0.9, offset: 2.3, thickness: 0.014 },
-          { radius: 1.85, tilt: 0.55, offset: 3.7, thickness: 0.012 },
+          { radius: 0.82, tilt: 0.12, offset: 0, thickness: 0.012 },
+          { radius: 0.95, tilt: -0.35, offset: 1.1, thickness: 0.009 },
+          { radius: 0.72, tilt: 0.8, offset: 2.3, thickness: 0.008 },
+          { radius: 1.08, tilt: 0.5, offset: 3.7, thickness: 0.007 },
         ].map((r, i) => (
           <group key={i}>
             <Rib {...r} />
@@ -119,8 +119,8 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
         {[0, 1, 2, 3, 4, 5].map((i) => {
           const a = (i / 6) * Math.PI * 2;
           return (
-            <mesh key={i} position={[Math.cos(a) * 1.25, 0, Math.sin(a) * 1.25]}>
-              <capsuleGeometry args={[0.008, 1.9, 4, 8]} />
+            <mesh key={i} position={[Math.cos(a) * 0.86, 0, Math.sin(a) * 0.86]}>
+              <capsuleGeometry args={[0.005, 1.2, 4, 8]} />
               <meshStandardMaterial
                 ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
                 color={PALETTE.titanium}
@@ -139,7 +139,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
       {/* Ouroboros — one perfect continuous ring */}
       <group ref={ring} rotation={[Math.PI / 2, 0, 0]} visible={false}>
         <mesh>
-          <torusGeometry args={[1.2, 0.018, 24, 400]} />
+          <torusGeometry args={[1.2, 0.012, 24, 400]} />
           <meshStandardMaterial
             ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
@@ -152,7 +152,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
           />
         </mesh>
         <mesh scale={0.94}>
-          <torusKnotGeometry args={[1.2, 0.006, 320, 8, 2, 3]} />
+          <torusKnotGeometry args={[1.2, 0.004, 320, 8, 2, 3]} />
           <meshStandardMaterial
             ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
