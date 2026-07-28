@@ -1,5 +1,6 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { Html } from "@react-three/drei";
 import * as THREE from "three";
 import { PALETTE, range, clamp, easeOutQuint } from "./scroll";
 
@@ -144,6 +145,7 @@ export function Particles({ progressRef }: { progressRef: React.MutableRefObject
 export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<number> }) {
   const group = useRef<THREE.Group>(null);
   const mats = useRef<THREE.MeshStandardMaterial[]>([]);
+  const labels = useRef<HTMLDivElement[]>([]);
 
   useFrame((state) => {
     const p = progressRef.current;
@@ -152,6 +154,10 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
     const vanish = 1 - range(p, 0.44, 0.56);
     const o = clamp(appear * vanish);
     for (const m of mats.current) m.opacity = o;
+    for (const el of labels.current) {
+      el.style.opacity = String(o);
+      el.style.transform = `translateY(${(1 - o) * 8}px)`;
+    }
     if (group.current) {
       group.current.visible = o > 0.002;
       group.current.scale.setScalar(0.6 + o * 0.4);
@@ -175,6 +181,22 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
             transparent
             opacity={0}
           />
+          <Html
+            center
+            distanceFactor={7}
+            zIndexRange={[20, 0]}
+            style={{ pointerEvents: "none" }}
+          >
+            <div
+              ref={(el) => {
+                if (el && !labels.current.includes(el)) labels.current.push(el);
+              }}
+              className="whitespace-nowrap text-[10px] font-light uppercase tracking-[0.34em] text-porcelain/80 transition-none"
+              style={{ opacity: 0, transform: "translateY(8px)" }}
+            >
+              {n.label}
+            </div>
+          </Html>
         </mesh>
       ))}
     </group>
