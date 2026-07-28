@@ -79,7 +79,10 @@ export function Particles({ progressRef }: { progressRef: React.MutableRefObject
     // Visibility envelope
     const fadeIn = range(p, 0.05, 0.16);
     const fadeOut = 1 - range(p, 0.8, 0.9);
-    const opacity = clamp(fadeIn * fadeOut);
+    // Recede while the synthetic world takes the stage, return for the collapse.
+    const recede = 1 - range(p, 0.44, 0.55) * 0.72 * (1 - range(p, 0.66, 0.72));
+    const opacity = clamp(fadeIn * fadeOut * recede);
+
 
     if (mat.current) {
       mat.current.opacity = opacity;
