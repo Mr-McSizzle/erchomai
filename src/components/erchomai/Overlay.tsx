@@ -80,7 +80,7 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
       {/* Scene 2 */}
       <motion.div
         style={{ opacity: s2 }}
-        className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-center px-8"
+        className="absolute inset-x-0 top-[18%] flex justify-center px-8"
       >
         <p className="text-[10px] font-light uppercase tracking-[0.5em] text-titanium md:text-[11px]">
           Intelligence

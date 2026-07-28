@@ -8,12 +8,12 @@ export const BRAIN = new THREE.Vector3(0, 1.27, 0);
 
 /** The six intelligence nodes. Positions are shared with the HTML labels. */
 export const NODES: { label: string; pos: [number, number, number] }[] = [
-  { label: "Research", pos: [-2.5, 2.05, -0.3] },
-  { label: "Simulation", pos: [2.5, 2.05, -0.3] },
-  { label: "Forecasting", pos: [-3.05, 0.75, 0.6] },
-  { label: "Synthetic Markets", pos: [3.05, 0.75, 0.6] },
-  { label: "Synthetic Customers", pos: [-2.05, -0.55, -0.5] },
-  { label: "Execution", pos: [2.05, -0.55, -0.5] },
+  { label: "Research", pos: [-1.5, 2.5, -0.2] },
+  { label: "Simulation", pos: [1.5, 2.5, -0.2] },
+  { label: "Forecasting", pos: [-2.15, 1.35, 0.45] },
+  { label: "Synthetic Markets", pos: [2.15, 1.35, 0.45] },
+  { label: "Synthetic Customers", pos: [-1.7, 0.15, -0.35] },
+  { label: "Execution", pos: [1.7, 0.15, -0.35] },
 ];
 
 const COUNT = 6000;
@@ -183,7 +183,7 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
           />
           <Html
             center
-            distanceFactor={7}
+            distanceFactor={6}
             zIndexRange={[20, 0]}
             style={{ pointerEvents: "none" }}
           >
