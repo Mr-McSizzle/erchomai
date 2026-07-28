@@ -143,7 +143,7 @@ export function Particles({ progressRef }: { progressRef: React.MutableRefObject
 /** Six floating geometric nodes that the beams connect to. */
 export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<number> }) {
   const group = useRef<THREE.Group>(null);
-  const mat = useRef<THREE.MeshStandardMaterial>(null);
+  const mats = useRef<THREE.MeshStandardMaterial[]>([]);
 
   useFrame((state) => {
     const p = progressRef.current;
