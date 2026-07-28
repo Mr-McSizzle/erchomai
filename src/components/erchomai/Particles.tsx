@@ -161,21 +161,20 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
 
   return (
     <group ref={group}>
-      {NODES.map((n, i) => (
+      {NODES.map((n) => (
         <mesh key={n.label} position={n.pos}>
           <octahedronGeometry args={[0.085, 0]} />
-          {i === 0 ? (
-            <meshStandardMaterial
-              ref={mat}
-              color={PALETTE.porcelain}
-              emissive={PALETTE.porcelain}
-              emissiveIntensity={0.8}
-              transparent
-              opacity={0}
-            />
-          ) : (
-            <primitive object={mat.current ?? new THREE.MeshStandardMaterial()} attach="material" />
-          )}
+          <meshStandardMaterial
+            ref={(m) => {
+              const mm = m as THREE.MeshStandardMaterial | null;
+              if (mm && !mats.current.includes(mm)) mats.current.push(mm);
+            }}
+            color={PALETTE.porcelain}
+            emissive={PALETTE.porcelain}
+            emissiveIntensity={0.8}
+            transparent
+            opacity={0}
+          />
         </mesh>
       ))}
     </group>
