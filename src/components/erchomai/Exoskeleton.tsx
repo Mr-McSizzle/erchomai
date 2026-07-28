@@ -116,36 +116,21 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
   return (
     <group ref={group} position={[0, 0.55, 0]}>
       <group ref={shell}>
-        {[
-          { radius: 0.82, tilt: 0.12, offset: 0, thickness: 0.012 },
-          { radius: 0.95, tilt: -0.35, offset: 1.1, thickness: 0.009 },
-          { radius: 0.72, tilt: 0.8, offset: 2.3, thickness: 0.008 },
-          { radius: 1.08, tilt: 0.5, offset: 3.7, thickness: 0.007 },
-        ].map((r, i) => (
-          <group key={i}>
-            <Rib {...r} />
-          </group>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <Meridian
+            key={i}
+            angle={(i / 5) * Math.PI}
+            radius={0.84}
+            height={1.16}
+            thickness={i === 0 ? 0.011 : 0.007}
+            lean={i % 2 === 0 ? 0.06 : -0.06}
+          />
         ))}
+        <Latitude y={0.62} radius={0.6} thickness={0.008} />
+        <Latitude y={0.12} radius={0.83} thickness={0.011} />
+        <Latitude y={-0.46} radius={0.7} thickness={0.008} />
         {titanium}
-        {/* Vertical spines */}
-        {[0, 1, 2, 3, 4, 5].map((i) => {
-          const a = (i / 6) * Math.PI * 2;
-          return (
-            <mesh key={i} position={[Math.cos(a) * 0.86, 0, Math.sin(a) * 0.86]}>
-              <capsuleGeometry args={[0.005, 1.2, 4, 8]} />
-              <meshStandardMaterial
-                ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
-                color={PALETTE.titanium}
-                emissive={PALETTE.titanium}
-                emissiveIntensity={0.06}
-                roughness={0.32}
-                metalness={0.85}
-                transparent
-                opacity={0}
-              />
-            </mesh>
-          );
-        })}
+
       </group>
 
       {/* Ouroboros — one perfect continuous ring */}
