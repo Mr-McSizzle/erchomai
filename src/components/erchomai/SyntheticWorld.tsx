@@ -65,9 +65,18 @@ export function SyntheticWorld({ progressRef }: { progressRef: React.MutableRefO
   return (
     <group ref={group} visible={false}>
       {/* Ground data grid */}
-      <gridHelper args={[26, 52, PALETTE.titanium, PALETTE.titanium]} position={[0, -1.62, 0]}>
-        <meshBasicMaterial attach="material" />
-      </gridHelper>
+      <gridHelper
+        args={[26, 52, PALETTE.titanium, PALETTE.titanium]}
+        position={[0, -1.62, 0]}
+        ref={(g) => {
+          const gh = g as THREE.GridHelper | null;
+          if (!gh) return;
+          const m = gh.material as THREE.Material;
+          m.transparent = true;
+          m.opacity = 0;
+          addMat(m);
+        }}
+      />
 
       {/* Spatial city */}
       {towers.map((tw) => (
