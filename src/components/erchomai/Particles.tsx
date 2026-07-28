@@ -10,10 +10,10 @@ export const BRAIN = new THREE.Vector3(0, 1.27, 0);
 export const NODES: { label: string; pos: [number, number, number] }[] = [
   { label: "Research", pos: [-1.05, 2.45, -0.15] },
   { label: "Simulation", pos: [1.05, 2.45, -0.15] },
-  { label: "Forecasting", pos: [-1.75, 1.4, 0.4] },
-  { label: "Synthetic Markets", pos: [1.75, 1.4, 0.4] },
-  { label: "Synthetic Customers", pos: [-1.35, 0.35, -0.3] },
-  { label: "Execution", pos: [1.35, 0.35, -0.3] },
+  { label: "Forecasting", pos: [-1.4, 1.55, 0.4] },
+  { label: "Synthetic Markets", pos: [1.4, 1.55, 0.4] },
+  { label: "Synthetic Customers", pos: [-1.2, 0.5, -0.3] },
+  { label: "Execution", pos: [1.2, 0.5, -0.3] },
 ];
 
 const COUNT = 6000;
