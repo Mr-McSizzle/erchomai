@@ -75,53 +75,53 @@ export function Figure({ progressRef }: { progressRef: React.MutableRefObject<nu
   return (
     <group ref={group} position={[0, -0.35, 0]}>
       {/* Head */}
-      <mesh position={[0, 1.66, 0]} scale={[0.86, 1.12, 0.94]} castShadow>
+      <mesh position={[0, 1.72, 0]} scale={[0.88, 1.14, 0.96]} castShadow>
         <sphereGeometry args={[0.26, 64, 64]} />
         {porcelain()}
       </mesh>
       {/* Jaw / chin mass */}
-      <mesh position={[0, 1.55, 0.05]} scale={[0.72, 0.78, 0.86]}>
-        <sphereGeometry args={[0.22, 48, 48]} />
+      <mesh position={[0, 1.63, 0.055]} scale={[0.68, 0.7, 0.8]}>
+        <sphereGeometry args={[0.2, 48, 48]} />
         {porcelain()}
       </mesh>
       {/* Neck */}
-      <mesh position={[0, 1.24, -0.01]}>
-        <capsuleGeometry args={[0.085, 0.3, 16, 32]} />
+      <mesh position={[0, 1.36, -0.01]}>
+        <capsuleGeometry args={[0.082, 0.2, 16, 32]} />
         {porcelain()}
       </mesh>
       {/* Chest / torso (breathing) */}
-      <mesh ref={chest} position={[0, 0.74, 0]} scale={[1, 1, 0.72]}>
-        <capsuleGeometry args={[0.3, 0.6, 24, 64]} />
+      <mesh ref={chest} position={[0, 0.9, 0]} scale={[1, 1, 0.7]}>
+        <capsuleGeometry args={[0.3, 0.42, 24, 64]} />
         {porcelain()}
       </mesh>
       {/* Shoulder line */}
-      {[-0.3, 0.3].map((x) => (
-        <mesh key={x} position={[x, 1.02, 0]} scale={[1, 0.62, 0.62]}>
-          <sphereGeometry args={[0.135, 40, 40]} />
+      {[-0.24, 0.24].map((x) => (
+        <mesh key={x} position={[x, 1.11, 0]} scale={[1, 0.6, 0.6]}>
+          <sphereGeometry args={[0.125, 40, 40]} />
           {porcelain()}
         </mesh>
       ))}
       {/* Deltoid stubs — the bust cut */}
-      {[-0.38, 0.38].map((x) => (
-        <mesh key={x} position={[x, 0.88, 0]} scale={[0.9, 0.85, 0.8]} rotation={[0, 0, x > 0 ? -0.3 : 0.3]}>
-          <capsuleGeometry args={[0.1, 0.14, 12, 32]} />
+      {[-0.34, 0.34].map((x) => (
+        <mesh key={x} position={[x, 0.94, 0]} scale={[0.8, 1, 0.75]} rotation={[0, 0, x > 0 ? -0.18 : 0.18]}>
+          <capsuleGeometry args={[0.085, 0.26, 12, 32]} />
           {porcelain()}
         </mesh>
       ))}
       {/* Plinth */}
-      <mesh position={[0, 0.34, 0]} scale={[1, 1, 0.72]}>
-        <cylinderGeometry args={[0.34, 0.36, 0.05, 64]} />
+      <mesh position={[0, 0.4, 0]} scale={[1, 1, 0.72]}>
+        <cylinderGeometry args={[0.33, 0.35, 0.045, 64]} />
         {porcelain({ roughness: 0.95 })}
       </mesh>
-      <mesh position={[0, 0.08, 0]} scale={[1, 1, 0.72]}>
-        <cylinderGeometry args={[0.16, 0.2, 0.5, 48]} />
+      <mesh position={[0, 0.14, 0]} scale={[1, 1, 0.72]}>
+        <cylinderGeometry args={[0.15, 0.19, 0.52, 48]} />
         {porcelain({ roughness: 0.95 })}
       </mesh>
 
       {/* The exposed brain */}
-      <group ref={brain} position={[0, 1.7, 0]}>
+      <group ref={brain} position={[0, 1.76, 0]}>
         <mesh ref={brainCore}>
-          <icosahedronGeometry args={[0.235, 1]} />
+          <icosahedronGeometry args={[0.185, 1]} />
           <meshStandardMaterial
             color={PALETTE.porcelain}
             emissive={PALETTE.porcelain}
@@ -132,7 +132,7 @@ export function Figure({ progressRef }: { progressRef: React.MutableRefObject<nu
           />
         </mesh>
         <mesh>
-          <icosahedronGeometry args={[0.115, 2]} />
+          <icosahedronGeometry args={[0.095, 2]} />
           <meshStandardMaterial
             color={PALETTE.porcelain}
             emissive={PALETTE.porcelain}
