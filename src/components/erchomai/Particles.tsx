@@ -8,12 +8,12 @@ export const BRAIN = new THREE.Vector3(0, 1.27, 0);
 
 /** The six intelligence nodes. Positions are shared with the HTML labels. */
 export const NODES: { label: string; pos: [number, number, number] }[] = [
-  { label: "Research", pos: [-1.5, 2.5, -0.2] },
-  { label: "Simulation", pos: [1.5, 2.5, -0.2] },
-  { label: "Forecasting", pos: [-2.15, 1.35, 0.45] },
-  { label: "Synthetic Markets", pos: [2.15, 1.35, 0.45] },
-  { label: "Synthetic Customers", pos: [-1.7, 0.15, -0.35] },
-  { label: "Execution", pos: [1.7, 0.15, -0.35] },
+  { label: "Research", pos: [-1.05, 2.45, -0.15] },
+  { label: "Simulation", pos: [1.05, 2.45, -0.15] },
+  { label: "Forecasting", pos: [-1.75, 1.4, 0.4] },
+  { label: "Synthetic Markets", pos: [1.75, 1.4, 0.4] },
+  { label: "Synthetic Customers", pos: [-1.35, 0.35, -0.3] },
+  { label: "Execution", pos: [1.35, 0.35, -0.3] },
 ];
 
 const COUNT = 6000;
@@ -156,11 +156,11 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
     for (const m of mats.current) m.opacity = o;
     for (const el of labels.current) {
       el.style.opacity = String(o);
-      el.style.transform = `translateY(${(1 - o) * 8}px)`;
+      el.style.transform = `translateY(${-24 + (1 - o) * 8}px)`;
     }
     if (group.current) {
       group.current.visible = o > 0.002;
-      group.current.scale.setScalar(0.6 + o * 0.4);
+      group.current.scale.setScalar(0.94 + o * 0.06);
       group.current.rotation.y = Math.sin(t * 0.1) * 0.08;
     }
   });
@@ -169,7 +169,7 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
     <group ref={group}>
       {NODES.map((n) => (
         <mesh key={n.label} position={n.pos}>
-          <octahedronGeometry args={[0.085, 0]} />
+          <octahedronGeometry args={[0.032, 0]} />
           <meshStandardMaterial
             ref={(m) => {
               const mm = m as THREE.MeshStandardMaterial | null;
@@ -181,18 +181,13 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
             transparent
             opacity={0}
           />
-          <Html
-            center
-            distanceFactor={6}
-            zIndexRange={[20, 0]}
-            style={{ pointerEvents: "none" }}
-          >
+          <Html center zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
             <div
               ref={(el) => {
                 if (el && !labels.current.includes(el)) labels.current.push(el);
               }}
-              className="whitespace-nowrap text-[10px] font-light uppercase tracking-[0.34em] text-porcelain/80 transition-none"
-              style={{ opacity: 0, transform: "translateY(8px)" }}
+              className="-translate-y-6 whitespace-nowrap text-[9px] font-light uppercase tracking-[0.34em] text-porcelain/75 md:text-[10px]"
+              style={{ opacity: 0, transform: "translateY(-16px)" }}
             >
               {n.label}
             </div>
