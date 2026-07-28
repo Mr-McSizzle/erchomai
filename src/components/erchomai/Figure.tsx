@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { PALETTE, range, window3, damp } from "./scroll";
@@ -7,7 +7,24 @@ import { PALETTE, range, window3, damp } from "./scroll";
  * Minimalist, gender-neutral abstract humanoid figure built from primitives.
  * Matte porcelain material. Breathing chest. Dissolves during the final scene.
  */
+/** Smooth revolve profile: plinth cut -> waist -> chest -> shoulder line -> neck. */
+function makeBustProfile() {
+  const control = [
+    new THREE.Vector2(0.001, 0.1),
+    new THREE.Vector2(0.34, 0.12),
+    new THREE.Vector2(0.3, 0.36),
+    new THREE.Vector2(0.31, 0.66),
+    new THREE.Vector2(0.38, 0.96),
+    new THREE.Vector2(0.42, 1.14),
+    new THREE.Vector2(0.3, 1.26),
+    new THREE.Vector2(0.12, 1.32),
+    new THREE.Vector2(0.085, 1.36),
+  ];
+  return new THREE.SplineCurve(control).getPoints(64);
+}
+
 export function Figure({ progressRef }: { progressRef: React.MutableRefObject<number> }) {
+  const bustProfile = useMemo(makeBustProfile, []);
   const group = useRef<THREE.Group>(null);
   const chest = useRef<THREE.Mesh>(null);
   const brain = useRef<THREE.Group>(null);
@@ -80,41 +97,25 @@ export function Figure({ progressRef }: { progressRef: React.MutableRefObject<nu
         {porcelain()}
       </mesh>
       {/* Jaw / chin mass */}
-      <mesh position={[0, 1.63, 0.055]} scale={[0.68, 0.7, 0.8]}>
+      <mesh position={[0, 1.63, 0.06]} scale={[0.68, 0.7, 0.82]}>
         <sphereGeometry args={[0.2, 48, 48]} />
         {porcelain()}
       </mesh>
       {/* Neck */}
-      <mesh position={[0, 1.36, -0.01]}>
-        <capsuleGeometry args={[0.082, 0.2, 16, 32]} />
+      <mesh position={[0, 1.4, -0.01]}>
+        <capsuleGeometry args={[0.082, 0.18, 16, 32]} />
         {porcelain()}
       </mesh>
-      {/* Chest / torso (breathing) */}
-      <mesh ref={chest} position={[0, 0.9, 0]} scale={[1, 1, 0.7]}>
-        <capsuleGeometry args={[0.3, 0.42, 24, 64]} />
+
+      {/* Torso — lathed bust profile (breathing) */}
+      <mesh ref={chest} position={[0, 0, 0]} scale={[1, 1, 0.66]}>
+        <latheGeometry args={[bustProfile, 96]} />
         {porcelain()}
       </mesh>
-      {/* Shoulder line */}
-      {[-0.24, 0.24].map((x) => (
-        <mesh key={x} position={[x, 1.11, 0]} scale={[1, 0.6, 0.6]}>
-          <sphereGeometry args={[0.125, 40, 40]} />
-          {porcelain()}
-        </mesh>
-      ))}
-      {/* Deltoid stubs — the bust cut */}
-      {[-0.34, 0.34].map((x) => (
-        <mesh key={x} position={[x, 0.94, 0]} scale={[0.8, 1, 0.75]} rotation={[0, 0, x > 0 ? -0.18 : 0.18]}>
-          <capsuleGeometry args={[0.085, 0.26, 12, 32]} />
-          {porcelain()}
-        </mesh>
-      ))}
+
       {/* Plinth */}
-      <mesh position={[0, 0.4, 0]} scale={[1, 1, 0.72]}>
-        <cylinderGeometry args={[0.33, 0.35, 0.045, 64]} />
-        {porcelain({ roughness: 0.95 })}
-      </mesh>
-      <mesh position={[0, 0.14, 0]} scale={[1, 1, 0.72]}>
-        <cylinderGeometry args={[0.15, 0.19, 0.52, 48]} />
+      <mesh position={[0, 0.06, 0]}>
+        <cylinderGeometry args={[0.4, 0.44, 0.12, 96]} />
         {porcelain({ roughness: 0.95 })}
       </mesh>
 
