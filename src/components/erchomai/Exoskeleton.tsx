@@ -3,38 +3,50 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { PALETTE, range, clamp, easeOutQuint, damp, lerp } from "./scroll";
 
-/** A single parametric curved rib, Zaha Hadid style. */
-function Rib({
+/** A clean parametric meridian arc — armillary/Hadid style, no noise. */
+function Meridian({
+  angle,
   radius,
-  tilt,
-  offset,
+  height,
+  thickness,
+  lean,
+}: {
+  angle: number;
+  radius: number;
+  height: number;
+  thickness: number;
+  lean: number;
+}) {
+  const geometry = useMemo(
+    () => new THREE.TorusGeometry(radius, thickness, 8, 220),
+    [radius, thickness],
+  );
+  return (
+    <mesh
+      geometry={geometry}
+      rotation={[0, angle, lean]}
+      scale={[1, height / radius, 1]}
+    />
+  );
+}
+
+/** A horizontal latitude ring. */
+function Latitude({
+  y,
+  radius,
   thickness,
 }: {
+  y: number;
   radius: number;
-  tilt: number;
-  offset: number;
   thickness: number;
 }) {
-  const geometry = useMemo(() => {
-    const pts: THREE.Vector3[] = [];
-    const SEG = 140;
-    for (let i = 0; i <= SEG; i++) {
-      const a = (i / SEG) * Math.PI * 2;
-      const r = radius + Math.sin(a * 3 + offset) * 0.1;
-      pts.push(
-        new THREE.Vector3(
-          Math.cos(a) * r,
-          Math.sin(a * 2 + offset) * 0.3 + Math.sin(a) * radius * Math.sin(tilt),
-          Math.sin(a) * r * Math.cos(tilt),
-        ),
-      );
-    }
-    const curve = new THREE.CatmullRomCurve3(pts, true, "centripetal", 0.5);
-    return new THREE.TubeGeometry(curve, 320, thickness, 10, true);
-  }, [radius, tilt, offset, thickness]);
-
-  return <mesh geometry={geometry} />;
+  const geometry = useMemo(
+    () => new THREE.TorusGeometry(radius, thickness, 8, 220),
+    [radius, thickness],
+  );
+  return <mesh geometry={geometry} position={[0, y, 0]} rotation={[Math.PI / 2, 0, 0]} />;
 }
+
 
 /**
  * Parametric architectural exoskeleton.
