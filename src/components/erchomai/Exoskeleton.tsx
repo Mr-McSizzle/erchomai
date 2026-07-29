@@ -142,9 +142,9 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
             ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
-            emissiveIntensity={0.9}
-            roughness={0.25}
-            metalness={0.9}
+            emissiveIntensity={1.6}
+            roughness={0.35}
+            metalness={0.2}
             transparent
             opacity={0}
           />
@@ -155,9 +155,9 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
             ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
-            emissiveIntensity={0.7}
-            roughness={0.3}
-            metalness={0.9}
+            emissiveIntensity={1.1}
+            roughness={0.35}
+            metalness={0.2}
             transparent
             opacity={0}
           />
