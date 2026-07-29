@@ -154,7 +154,7 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
     const p = progressRef.current;
     const t = state.clock.elapsedTime;
     const appear = easeOutQuint(range(p, 0.24, 0.34));
-    const vanish = 1 - range(p, 0.44, 0.56);
+    const vanish = 1 - range(p, 0.36, 0.44);
     const o = clamp(appear * vanish);
     for (const m of mats.current) m.opacity = o;
     for (const el of labels.current) {
