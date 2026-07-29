@@ -88,6 +88,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
 
     // Shell fades into the flat ring as the Ouroboros forms.
     if (shell.current) {
+      shell.current.visible = ouroboros < 0.4;
       shell.current.scale.y = lerp(1, 0.06, ouroboros);
       shell.current.scale.x = shell.current.scale.z = lerp(1, 1.35, ouroboros);
       shell.current.rotation.z = lerp(0, 0.0, ouroboros);
@@ -141,7 +142,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
             ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
-            emissiveIntensity={0.3}
+            emissiveIntensity={0.9}
             roughness={0.25}
             metalness={0.9}
             transparent
@@ -154,7 +155,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
             ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
-            emissiveIntensity={0.2}
+            emissiveIntensity={0.7}
             roughness={0.3}
             metalness={0.9}
             transparent
