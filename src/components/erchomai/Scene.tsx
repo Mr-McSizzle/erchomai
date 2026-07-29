@@ -21,7 +21,7 @@ function CameraRig({ progressRef }: { progressRef: React.MutableRefObject<number
     // Keyframed dolly path
     const keys: [number, THREE.Vector3Tuple, THREE.Vector3Tuple][] = [
       [0.0, [0, 1.15, 4.6], [0, 1.05, 0]],
-      [0.15, [0, 1.66, 1.55], [0, 1.68, 0]],
+      [0.15, [0, 1.5, 4.2], [0, 1.3, 0]],
       [0.3, [0, 1.35, 7.4], [0, 1.28, 0]],
       [0.45, [1.35, 1.35, 4.9], [0, 1.05, 0]],
       [0.6, [-1.7, 2.1, 8.2], [0, 1.0, 0]],

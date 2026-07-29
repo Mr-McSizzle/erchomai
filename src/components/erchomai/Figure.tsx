@@ -32,8 +32,12 @@ export function Figure({ progressRef }: { progressRef: React.MutableRefObject<nu
   const matsRef = useRef<THREE.MeshStandardMaterial[]>([]);
 
   const collect = (m: THREE.MeshStandardMaterial | null) => {
-    if (m && !matsRef.current.includes(m)) matsRef.current.push(m);
+    if (m && !matsRef.current.includes(m)) {
+      m.userData.base = m.userData.base ?? m.opacity;
+      matsRef.current.push(m);
+    }
   };
+
 
   useFrame((state, dt) => {
     const p = progressRef.current;
@@ -72,9 +76,10 @@ export function Figure({ progressRef }: { progressRef: React.MutableRefObject<nu
     // Dissolve in the logo scene.
     const opacity = 1 - range(p, 0.9, 0.985);
     for (const m of matsRef.current) {
-      m.opacity = opacity;
+      m.opacity = opacity * (m.userData.base ?? 1);
       m.visible = opacity > 0.001;
     }
+
     if (group.current) group.current.visible = opacity > 0.001;
   });
 
@@ -91,11 +96,13 @@ export function Figure({ progressRef }: { progressRef: React.MutableRefObject<nu
 
   return (
     <group ref={group} position={[0, -0.35, 0]}>
-      {/* Head */}
+      {/* Cranium — opened at the crown so the brain is exposed */}
       <mesh position={[0, 1.72, 0]} scale={[0.88, 1.14, 0.96]} castShadow>
-        <sphereGeometry args={[0.26, 64, 64]} />
-        {porcelain()}
+        <sphereGeometry args={[0.26, 64, 64, 0, Math.PI * 2, Math.PI * 0.2, Math.PI * 0.8]} />
+        {porcelain({ side: THREE.DoubleSide })}
       </mesh>
+
+
       {/* Jaw / chin mass */}
       <mesh position={[0, 1.63, 0.06]} scale={[0.68, 0.7, 0.82]}>
         <sphereGeometry args={[0.2, 48, 48]} />
@@ -120,7 +127,7 @@ export function Figure({ progressRef }: { progressRef: React.MutableRefObject<nu
       </mesh>
 
       {/* The exposed brain */}
-      <group ref={brain} position={[0, 1.76, 0]}>
+      <group ref={brain} position={[0, 1.9, 0]} scale={0.92}>
         <mesh ref={brainCore}>
           <icosahedronGeometry args={[0.185, 1]} />
           <meshStandardMaterial

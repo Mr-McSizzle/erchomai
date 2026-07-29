@@ -35,9 +35,15 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
   const s7y = useTransform(progress, [0.955, 1], [22, 0]);
   const logoTrack = useTransform(progress, [0.955, 1], ["0.62em", "0.34em"]);
 
+  // Scene 0 — Hero
+  const s0 = useTransform(progress, [0, 0.035, 0.075], [1, 1, 0], { clamp: true });
+  const s0y = useTransform(progress, [0, 0.075], [0, -28]);
+  const heroTrack = useTransform(progress, [0, 0.075], ["0.16em", "0.3em"]);
+
   // Persistent chrome
   const chrome = useTransform(progress, [0, 0.03, 0.94, 0.97], [1, 1, 1, 0], { clamp: true });
   const hint = useTransform(progress, [0, 0.02, 0.05], [1, 1, 0], { clamp: true });
+
 
   const t = { duration: 0.8, ease: EASE };
 
@@ -66,16 +72,37 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
         <span className="h-10 w-px bg-gradient-to-b from-titanium/70 to-transparent" />
       </motion.div>
 
+      {/* Scene 0 — Hero */}
+      <motion.div
+        style={{ opacity: s0, y: s0y }}
+        className="absolute inset-x-0 top-[14%] flex flex-col items-center px-8"
+      >
+        <motion.p
+          style={{ letterSpacing: heroTrack }}
+          className="text-center text-[9vw] font-extralight uppercase leading-[0.95] text-porcelain md:text-[5.2vw]"
+        >
+          The Future,
+        </motion.p>
+        <motion.p
+          style={{ letterSpacing: heroTrack }}
+          className="text-center text-[9vw] font-extralight uppercase leading-[0.95] text-titanium md:text-[5.2vw]"
+        >
+          Arrived.
+        </motion.p>
+      </motion.div>
+
+
       {/* Scene 1 */}
       <motion.div
         style={{ opacity: s1, y: s1y }}
         transition={t}
-        className="absolute inset-0 flex items-center justify-center px-8"
+        className="absolute inset-y-0 left-0 flex w-full max-w-[42%] items-center px-6 md:px-12"
       >
-        <p className="max-w-[22ch] text-center text-2xl font-extralight leading-[1.25] tracking-[0.02em] text-porcelain sm:text-3xl md:text-5xl">
+        <p className="max-w-[14ch] text-xl font-extralight leading-[1.2] tracking-[0.02em] text-porcelain sm:text-3xl md:text-4xl">
           Every breakthrough begins here.
         </p>
       </motion.div>
+
 
       {/* Scene 2 */}
       <motion.div

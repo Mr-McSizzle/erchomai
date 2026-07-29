@@ -88,13 +88,14 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
 
     // Shell fades into the flat ring as the Ouroboros forms.
     if (shell.current) {
+      shell.current.visible = ouroboros < 0.4;
       shell.current.scale.y = lerp(1, 0.06, ouroboros);
       shell.current.scale.x = shell.current.scale.z = lerp(1, 1.35, ouroboros);
       shell.current.rotation.z = lerp(0, 0.0, ouroboros);
     }
     if (ring.current) {
       const ro = ouroboros * (1 - compress);
-      ring.current.scale.setScalar(lerp(0.4, 1.55, ouroboros));
+      ring.current.scale.setScalar(lerp(0.4, 0.92, ouroboros));
       ring.current.rotation.z += d * 0.25 * ro;
       ring.current.visible = ro > 0.01;
     }
@@ -122,41 +123,41 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
             angle={(i / 5) * Math.PI}
             radius={0.84}
             height={1.16}
-            thickness={i === 0 ? 0.011 : 0.007}
+            thickness={i === 0 ? 0.006 : 0.004}
             lean={i % 2 === 0 ? 0.06 : -0.06}
           />
         ))}
-        <Latitude y={0.62} radius={0.6} thickness={0.008} />
-        <Latitude y={0.12} radius={0.83} thickness={0.011} />
-        <Latitude y={-0.46} radius={0.7} thickness={0.008} />
+        <Latitude y={0.62} radius={0.6} thickness={0.005} />
+        <Latitude y={0.12} radius={0.83} thickness={0.006} />
+        <Latitude y={-0.46} radius={0.7} thickness={0.005} />
         {titanium}
 
       </group>
 
       {/* Ouroboros — one perfect continuous ring */}
-      <group ref={ring} rotation={[Math.PI / 2, 0, 0]} visible={false}>
+      <group ref={ring} rotation={[Math.PI / 2.35, 0, 0]} visible={false}>
         <mesh>
           <torusGeometry args={[1.2, 0.012, 24, 400]} />
           <meshStandardMaterial
             ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
-            emissiveIntensity={0.3}
-            roughness={0.25}
-            metalness={0.9}
+            emissiveIntensity={1.6}
+            roughness={0.35}
+            metalness={0.2}
             transparent
             opacity={0}
           />
         </mesh>
-        <mesh scale={0.94}>
-          <torusKnotGeometry args={[1.2, 0.004, 320, 8, 2, 3]} />
+        <mesh scale={0.82}>
+          <torusGeometry args={[1.2, 0.004, 16, 300]} />
           <meshStandardMaterial
             ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
-            emissiveIntensity={0.2}
-            roughness={0.3}
-            metalness={0.9}
+            emissiveIntensity={1.1}
+            roughness={0.35}
+            metalness={0.2}
             transparent
             opacity={0}
           />

@@ -10,10 +10,10 @@ export const BRAIN = new THREE.Vector3(0, 1.27, 0);
 export const NODES: { label: string; pos: [number, number, number] }[] = [
   { label: "Research", pos: [-1.05, 2.45, -0.15] },
   { label: "Simulation", pos: [1.05, 2.45, -0.15] },
-  { label: "Forecasting", pos: [-1.4, 1.55, 0.4] },
-  { label: "Synthetic Markets", pos: [1.4, 1.55, 0.4] },
-  { label: "Synthetic Customers", pos: [-1.2, 0.5, -0.3] },
-  { label: "Execution", pos: [1.2, 0.5, -0.3] },
+  { label: "Forecasting", pos: [-1.18, 1.55, 0.4] },
+  { label: "Synthetic Markets", pos: [1.18, 1.55, 0.4] },
+  { label: "Synthetic Customers", pos: [-1.0, 0.5, -0.3] },
+  { label: "Execution", pos: [1.0, 0.5, -0.3] },
 ];
 
 const COUNT = 6000;
@@ -154,7 +154,7 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
     const p = progressRef.current;
     const t = state.clock.elapsedTime;
     const appear = easeOutQuint(range(p, 0.24, 0.34));
-    const vanish = 1 - range(p, 0.44, 0.56);
+    const vanish = 1 - range(p, 0.36, 0.44);
     const o = clamp(appear * vanish);
     for (const m of mats.current) m.opacity = o;
     for (const el of labels.current) {
