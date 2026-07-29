@@ -122,13 +122,13 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
             angle={(i / 5) * Math.PI}
             radius={0.84}
             height={1.16}
-            thickness={i === 0 ? 0.011 : 0.007}
+            thickness={i === 0 ? 0.006 : 0.004}
             lean={i % 2 === 0 ? 0.06 : -0.06}
           />
         ))}
-        <Latitude y={0.62} radius={0.6} thickness={0.008} />
-        <Latitude y={0.12} radius={0.83} thickness={0.011} />
-        <Latitude y={-0.46} radius={0.7} thickness={0.008} />
+        <Latitude y={0.62} radius={0.6} thickness={0.005} />
+        <Latitude y={0.12} radius={0.83} thickness={0.006} />
+        <Latitude y={-0.46} radius={0.7} thickness={0.005} />
         {titanium}
 
       </group>
