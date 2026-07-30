@@ -72,24 +72,23 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
         <span className="h-10 w-px bg-gradient-to-b from-titanium/70 to-transparent" />
       </motion.div>
 
-      {/* Scene 0 — Hero */}
-      <motion.div
-        style={{ opacity: s0, y: s0y }}
-        className="absolute inset-x-0 top-[14%] flex flex-col items-center px-8"
-      >
+      {/* Scene 0 — Hero (split around the figure) */}
+      <motion.div style={{ opacity: s0, y: s0y }} className="absolute inset-0">
         <motion.p
           style={{ letterSpacing: heroTrack }}
-          className="text-center text-[9vw] font-extralight uppercase leading-[0.95] text-porcelain md:text-[5.2vw]"
+          className="absolute left-6 top-[16%] text-[9vw] font-extralight uppercase leading-[0.95] text-porcelain md:left-12 md:top-[18%] md:text-[5vw]"
         >
           The Future,
         </motion.p>
         <motion.p
           style={{ letterSpacing: heroTrack }}
-          className="text-center text-[9vw] font-extralight uppercase leading-[0.95] text-titanium md:text-[5.2vw]"
+          className="absolute bottom-[20%] right-6 text-[9vw] font-extralight uppercase leading-[0.95] text-titanium md:bottom-[18%] md:right-12 md:text-[5vw]"
         >
           Arrived.
         </motion.p>
       </motion.div>
+
+
 
 
       {/* Scene 1 */}
@@ -146,9 +145,9 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
       {/* Scene 5 */}
       <motion.div
         style={{ opacity: s5 }}
-        className="absolute inset-0 flex items-center justify-center px-8"
+        className="absolute inset-y-0 right-0 flex w-full max-w-[46%] items-center justify-end px-6 md:px-12"
       >
-        <p className="max-w-[20ch] text-center text-2xl font-extralight leading-[1.25] tracking-[0.02em] text-porcelain sm:text-3xl md:text-5xl">
+        <p className="max-w-[12ch] text-right text-xl font-extralight leading-[1.2] tracking-[0.02em] text-porcelain sm:text-3xl md:text-4xl">
           One decision. <span className="text-titanium">Infinite computation.</span>
         </p>
       </motion.div>
