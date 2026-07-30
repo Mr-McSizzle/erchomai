@@ -4,16 +4,16 @@ import { Html } from "@react-three/drei";
 import * as THREE from "three";
 import { PALETTE, range, clamp, easeOutQuint } from "./scroll";
 
-export const BRAIN = new THREE.Vector3(0, 1.27, 0);
+export const BRAIN = new THREE.Vector3(0, 1.55, 0);
 
 /** The six intelligence nodes. Positions are shared with the HTML labels. */
 export const NODES: { label: string; pos: [number, number, number] }[] = [
-  { label: "Research", pos: [-1.05, 2.45, -0.15] },
-  { label: "Simulation", pos: [1.05, 2.45, -0.15] },
-  { label: "Forecasting", pos: [-1.18, 1.55, 0.4] },
-  { label: "Synthetic Markets", pos: [1.18, 1.55, 0.4] },
-  { label: "Synthetic Customers", pos: [-1.0, 0.5, -0.3] },
-  { label: "Execution", pos: [1.0, 0.5, -0.3] },
+  { label: "Research", pos: [-1.12, 2.62, -0.15] },
+  { label: "Simulation", pos: [1.12, 2.62, -0.15] },
+  { label: "Forecasting", pos: [-1.42, 1.72, 0.35] },
+  { label: "Synthetic Markets", pos: [1.42, 1.72, 0.35] },
+  { label: "Synthetic Customers", pos: [-1.3, 0.86, -0.3] },
+  { label: "Execution", pos: [1.3, 0.86, -0.3] },
 ];
 
 const COUNT = 6000;

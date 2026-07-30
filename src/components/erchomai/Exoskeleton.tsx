@@ -75,7 +75,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
     const opacity = clamp(assemble) * (1 - compress);
 
     for (const m of mats.current) {
-      m.opacity = opacity * 0.95;
+      m.opacity = opacity * 0.62;
       m.emissiveIntensity = 0.06 + pulse * (0.5 + Math.sin(t * 3.2) * 0.4);
     }
 
@@ -115,22 +115,23 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
   );
 
   return (
-    <group ref={group} position={[0, 0.55, 0]}>
+    <group ref={group} position={[0, 0.82, 0]}>
       <group ref={shell}>
         {[0, 1, 2, 3, 4].map((i) => (
           <Meridian
             key={i}
             angle={(i / 5) * Math.PI}
-            radius={0.84}
-            height={1.16}
+            radius={1.02}
+            height={1.5}
             thickness={i === 0 ? 0.006 : 0.004}
             lean={i % 2 === 0 ? 0.06 : -0.06}
           />
         ))}
-        <Latitude y={0.62} radius={0.6} thickness={0.005} />
-        <Latitude y={0.12} radius={0.83} thickness={0.006} />
-        <Latitude y={-0.46} radius={0.7} thickness={0.005} />
+        <Latitude y={0.8} radius={0.72} thickness={0.005} />
+        <Latitude y={0.14} radius={1.01} thickness={0.006} />
+        <Latitude y={-0.6} radius={0.84} thickness={0.005} />
         {titanium}
+
 
       </group>
 
