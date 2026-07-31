@@ -16,8 +16,11 @@ export function useAmbientAudio(enabled = true) {
     let raf = 0;
     let noiseGain: GainNode | null = null;
     let noiseFilter: BiquadFilterNode | null = null;
+    let humFilterRef: BiquadFilterNode | null = null;
+    let droneGain: GainNode | null = null;
     let master: GainNode | null = null;
     let disposed = false;
+
 
     const start = () => {
       if (startedRef.current || disposed) return;
