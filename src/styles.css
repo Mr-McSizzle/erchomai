@@ -154,6 +154,8 @@
   html {
     background-color: var(--obsidian);
     scroll-behavior: auto;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: auto;
   }
 
   body {
@@ -163,6 +165,16 @@
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    overscroll-behavior: none;
+  }
+
+  /* Custom cursor takes over on precise pointers only. */
+  @media (pointer: fine) {
+    body,
+    body a,
+    body button {
+      cursor: none;
+    }
   }
 
   ::selection {

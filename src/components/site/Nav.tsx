@@ -31,19 +31,19 @@ export function Nav() {
         solid ? "bg-obsidian/95 backdrop-blur-sm" : "bg-transparent",
       )}
     >
-      <nav className="flex items-center justify-between px-6 py-5 md:px-12">
+      <nav className="flex items-center justify-between gap-4 px-5 py-5 md:px-12">
         <Link
           to="/"
-          className="text-[10px] font-light uppercase tracking-[0.5em] text-porcelain transition-opacity hover:opacity-60"
+          className="shrink-0 text-[10px] font-light uppercase tracking-[0.34em] text-porcelain transition-opacity hover:opacity-60 md:tracking-[0.5em]"
         >
           Erchomai
         </Link>
-        <ul className="flex items-center gap-5 md:gap-9">
+        <ul className="flex items-center gap-3.5 sm:gap-5 md:gap-9">
           {LINKS.map((l) => (
             <li key={l.to}>
               <Link
                 to={l.to}
-                className="text-[9px] font-light uppercase tracking-[0.34em] text-titanium transition-colors hover:text-porcelain md:text-[10px] md:tracking-[0.4em]"
+                className="text-[9px] font-light uppercase tracking-[0.16em] sm:tracking-[0.28em] text-titanium transition-colors hover:text-porcelain md:text-[10px] md:tracking-[0.4em]"
                 activeProps={{ className: "!text-porcelain" }}
               >
                 {l.label}

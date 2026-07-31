@@ -16,8 +16,11 @@ export function useAmbientAudio(enabled = true) {
     let raf = 0;
     let noiseGain: GainNode | null = null;
     let noiseFilter: BiquadFilterNode | null = null;
+    let humFilterRef: BiquadFilterNode | null = null;
+    let droneGain: GainNode | null = null;
     let master: GainNode | null = null;
     let disposed = false;
+
 
     const start = () => {
       if (startedRef.current || disposed) return;
@@ -42,7 +45,18 @@ export function useAmbientAudio(enabled = true) {
       humFilter.type = "lowpass";
       humFilter.frequency.value = 220;
       humFilter.Q.value = 6;
+      humFilterRef = humFilter;
       humGain.connect(humFilter).connect(master);
+
+      // --- 55Hz sub drone, very low gain, swept by scroll progress ---
+      const drone = ctx.createOscillator();
+      drone.type = "sine";
+      drone.frequency.value = 55;
+      droneGain = ctx.createGain();
+      droneGain.gain.value = 0.035;
+      drone.connect(droneGain).connect(humFilter);
+      drone.start();
+
 
       [41.2, 41.9, 82.4].forEach((f, i) => {
         const osc = ctx!.createOscillator();
@@ -85,10 +99,15 @@ export function useAmbientAudio(enabled = true) {
         raf = requestAnimationFrame(tick);
         if (!ctx || !noiseGain || !noiseFilter) return;
         const v = Math.min(1, Math.abs(scrollStore.velocity) * 14);
+        const p = Math.min(1, Math.max(0, scrollStore.progress));
         const t = ctx.currentTime;
         noiseGain.gain.setTargetAtTime(v * 0.05, t, 0.25);
         noiseFilter.frequency.setTargetAtTime(280 + v * 2600, t, 0.35);
+        // Lowpass sweep + gentle swell tied to scroll depth on the index page.
+        humFilterRef?.frequency.setTargetAtTime(160 + p * 520, t, 0.6);
+        droneGain?.gain.setTargetAtTime(0.028 + p * 0.026, t, 0.8);
       };
+
       tick();
     };
 
