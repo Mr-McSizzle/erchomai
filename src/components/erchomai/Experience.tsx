@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
+import { Loader } from "@react-three/drei";
 import { useMotionValue } from "framer-motion";
 import { Scene } from "./Scene";
 import { Overlay } from "./Overlay";
-import { useAmbientAudio } from "./useAmbientAudio";
 import { scrollStore, clamp, damp } from "./scroll";
 
 const PAGES = 8; // 8 x 100vh of scroll travel across the 7 scenes
@@ -20,9 +20,8 @@ export function Experience() {
   const smoothProgress = useRef(0);
   const motionProgress = useMotionValue(0);
 
-  useAmbientAudio(mounted);
-
   useEffect(() => setMounted(true), []);
+
 
   useEffect(() => {
     if (!mounted) return;
