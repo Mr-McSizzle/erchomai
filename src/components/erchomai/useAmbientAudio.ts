@@ -45,7 +45,18 @@ export function useAmbientAudio(enabled = true) {
       humFilter.type = "lowpass";
       humFilter.frequency.value = 220;
       humFilter.Q.value = 6;
+      humFilterRef = humFilter;
       humGain.connect(humFilter).connect(master);
+
+      // --- 55Hz sub drone, very low gain, swept by scroll progress ---
+      const drone = ctx.createOscillator();
+      drone.type = "sine";
+      drone.frequency.value = 55;
+      droneGain = ctx.createGain();
+      droneGain.gain.value = 0.035;
+      drone.connect(droneGain).connect(humFilter);
+      drone.start();
+
 
       [41.2, 41.9, 82.4].forEach((f, i) => {
         const osc = ctx!.createOscillator();
