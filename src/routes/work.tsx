@@ -54,7 +54,7 @@ function Bars() {
 
 function Terminal({ code }: { code: string }) {
   return (
-    <pre className="overflow-x-auto border border-porcelain/10 bg-porcelain/[0.03] p-5 font-mono text-[11px] leading-relaxed text-titanium md:text-xs">
+    <pre className="w-full min-w-0 max-w-full overflow-x-auto whitespace-pre-wrap break-words border border-porcelain/10 bg-porcelain/[0.03] p-4 font-mono text-[10px] leading-relaxed text-titanium sm:whitespace-pre sm:p-5 sm:text-[11px] md:text-xs">
       {code}
     </pre>
   );
@@ -75,7 +75,7 @@ function WorkPage() {
       <section className="space-y-px bg-porcelain/10">
         <Reveal>
           <article className="group grid gap-10 bg-obsidian px-6 py-16 md:grid-cols-12 md:gap-12 md:px-12 md:py-24">
-            <div className="md:col-span-6">
+            <div className="min-w-0 md:col-span-6">
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-emerald">
                 Case 01 / Simulation
               </p>
@@ -96,14 +96,14 @@ function WorkPage() {
                   ["Paths", "12k"],
                   ["Horizon", "48Q"],
                 ].map(([k, v]) => (
-                  <div key={k}>
+                  <div key={k} className="min-w-0">
                     <dt>{k}</dt>
                     <dd className="mt-2 font-mono text-base tracking-normal text-porcelain">{v}</dd>
                   </div>
                 ))}
               </dl>
             </div>
-            <div className="space-y-6 md:col-span-6">
+            <div className="min-w-0 space-y-6 md:col-span-6">
               <Bars />
               <Terminal code={TERMINAL_A} />
             </div>
@@ -112,11 +112,11 @@ function WorkPage() {
 
         <Reveal>
           <article className="group grid gap-10 bg-obsidian px-6 py-16 md:grid-cols-12 md:gap-12 md:px-12 md:py-24">
-            <div className="space-y-6 md:order-2 md:col-span-6">
+            <div className="min-w-0 space-y-6 md:order-2 md:col-span-6">
               <Bars />
               <Terminal code={TERMINAL_B} />
             </div>
-            <div className="md:col-span-6">
+            <div className="min-w-0 md:col-span-6">
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-emerald">
                 Case 02 / Telemetry
               </p>
@@ -139,7 +139,7 @@ function WorkPage() {
                   ["Ingest", "18.4k/s"],
                   ["P99", "41ms"],
                 ].map(([k, v]) => (
-                  <div key={k}>
+                  <div key={k} className="min-w-0">
                     <dt>{k}</dt>
                     <dd className="mt-2 font-mono text-base tracking-normal text-porcelain">{v}</dd>
                   </div>
