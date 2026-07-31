@@ -12,6 +12,9 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav } from "../components/site/Nav";
+import { Cursor } from "../components/site/Cursor";
+import { AudioLayer } from "../components/site/AudioLayer";
+
 
 
 function NotFoundComponent() {
@@ -128,10 +131,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <AudioLayer />
+      <Cursor />
       <Nav />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
   );
 }
+
 
