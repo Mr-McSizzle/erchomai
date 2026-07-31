@@ -1,12 +1,41 @@
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Loader } from "@react-three/drei";
-import { useMotionValue } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue } from "framer-motion";
 import { Scene } from "./Scene";
 import { Overlay } from "./Overlay";
-import { scrollStore, clamp, damp } from "./scroll";
+import { scrollStore, clamp, damp, EASE } from "./scroll";
 
 const PAGES = 8; // 8 x 100vh of scroll travel across the 7 scenes
+
+/** Obsidian boot field shown while the procedural geometry is being built. */
+function BootScreen({ done }: { done: boolean }) {
+  return (
+    <AnimatePresence>
+      {!done && (
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="fixed inset-0 z-[80] flex flex-col items-center justify-center bg-obsidian"
+        >
+          <div className="h-px w-[38vw] max-w-[420px] overflow-hidden bg-porcelain/15">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.4, ease: EASE }}
+              className="h-px w-full origin-left bg-porcelain"
+            />
+          </div>
+          <p className="mt-5 text-[10px] font-light uppercase tracking-[0.42em] text-titanium">
+            Calibrating
+          </p>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 
 /**
  * Root of the Erchomai experience.
