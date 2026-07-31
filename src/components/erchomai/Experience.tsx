@@ -44,6 +44,8 @@ function BootScreen({ done }: { done: boolean }) {
  */
 export function Experience() {
   const [mounted, setMounted] = useState(false);
+  const [ready, setReady] = useState(false);
+
   const scroller = useRef<HTMLDivElement>(null);
   const rawProgress = useRef(0);
   const smoothProgress = useRef(0);
