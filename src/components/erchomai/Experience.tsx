@@ -68,12 +68,34 @@ export function Experience() {
             dpr={[1, 1.75]}
             gl={{ antialias: true, powerPreference: "high-performance" }}
             camera={{ position: [0, 0.95, 6.4], fov: 38, near: 0.1, far: 90 }}
+            onCreated={() => requestAnimationFrame(() => setReady(true))}
           >
-            <Scene progressRef={smoothProgress} />
+            <Suspense fallback={null}>
+              <Scene progressRef={smoothProgress} />
+            </Suspense>
           </Canvas>
         )}
       </div>
+
+      {/* Preloader — obsidian field, 1px porcelain bar, tracked titanium readout. */}
+      <Loader
+        containerStyles={{ background: "#0B0B0B" }}
+        innerStyles={{ width: "38vw", maxWidth: 420, height: 1, background: "rgba(245,245,245,0.14)" }}
+        barStyles={{ height: 1, background: "#F5F5F5" }}
+        dataStyles={{
+          color: "#878681",
+          fontFamily: "Inter, sans-serif",
+          fontSize: "10px",
+          fontWeight: 300,
+          textTransform: "uppercase",
+          letterSpacing: "0.42em",
+          marginTop: "18px",
+        }}
+        dataInterpolation={(p) => `Calibrating ${p.toFixed(0)}%`}
+      />
+      <BootScreen done={ready} />
       <Overlay progress={motionProgress} />
+
       {/* Accessible, crawlable content beneath the visual experience. */}
       <div className="sr-only">
         <h1>Erchomai — The Future, Arrived.</h1>
