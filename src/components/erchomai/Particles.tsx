@@ -7,14 +7,15 @@ import { PALETTE, range, clamp, easeOutQuint } from "./scroll";
 export const BRAIN = new THREE.Vector3(0, 1.55, 0);
 
 /** The six intelligence nodes. Positions are shared with the HTML labels. */
-export const NODES: { label: string; pos: [number, number, number] }[] = [
-  { label: "Research", pos: [-1.12, 2.62, -0.15] },
-  { label: "Simulation", pos: [1.12, 2.62, -0.15] },
-  { label: "Forecasting", pos: [-1.42, 1.72, 0.35] },
-  { label: "Synthetic Markets", pos: [1.42, 1.72, 0.35] },
-  { label: "Synthetic Customers", pos: [-1.3, 0.86, -0.3] },
-  { label: "Execution", pos: [1.3, 0.86, -0.3] },
+export const NODES: { label: string; short: string; pos: [number, number, number] }[] = [
+  { label: "Research", short: "Research", pos: [-1.12, 2.62, -0.15] },
+  { label: "Simulation", short: "Simulation", pos: [1.12, 2.62, -0.15] },
+  { label: "Forecasting", short: "Forecast", pos: [-1.42, 1.72, 0.35] },
+  { label: "Synthetic Markets", short: "Markets", pos: [1.42, 1.72, 0.35] },
+  { label: "Synthetic Customers", short: "Customers", pos: [-1.3, 0.86, -0.3] },
+  { label: "Execution", short: "Execution", pos: [1.3, 0.86, -0.3] },
 ];
+
 
 const COUNT = 6000;
 
@@ -189,10 +190,12 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
               ref={(el) => {
                 if (el && !labels.current.includes(el)) labels.current.push(el);
               }}
-              className="-translate-y-6 whitespace-nowrap text-[9px] font-light uppercase tracking-[0.34em] text-porcelain/75 md:text-[10px]"
+              className="-translate-y-6 whitespace-nowrap text-[7px] font-light uppercase tracking-[0.14em] text-porcelain/75 sm:text-[9px] sm:tracking-[0.28em] md:text-[10px] md:tracking-[0.34em]"
               style={{ opacity: 0, transform: "translateY(-16px)" }}
             >
-              {n.label}
+              <span className="sm:hidden">{n.short}</span>
+              <span className="hidden sm:inline">{n.label}</span>
+
             </div>
           </Html>
         </mesh>
