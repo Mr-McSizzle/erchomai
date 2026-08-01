@@ -82,7 +82,7 @@ export function Scene({ progressRef }: { progressRef: React.MutableRefObject<num
         intensity={26}
         color={PALETTE.porcelain}
       />
-      <pointLight position={[-2.2, 1.2, 2.6]} intensity={3} distance={9} color={PALETTE.emerald} />
+      <pointLight position={[-3.4, 0.4, 3.4]} intensity={1.1} distance={7} color={PALETTE.emerald} />
 
 
       <Figure progressRef={progressRef} />
