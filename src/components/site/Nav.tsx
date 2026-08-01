@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/site/Magnetic";
+import { TERMINAL_PING } from "@/components/site/HiddenTerminal";
+
 
 const LINKS = [
   { to: "/approach", label: "Approach" },
