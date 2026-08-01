@@ -193,7 +193,9 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
               className="-translate-y-6 whitespace-nowrap text-[7px] font-light uppercase tracking-[0.14em] text-porcelain/75 sm:text-[9px] sm:tracking-[0.28em] md:text-[10px] md:tracking-[0.34em]"
               style={{ opacity: 0, transform: "translateY(-16px)" }}
             >
-              {n.label}
+              <span className="sm:hidden">{n.short}</span>
+              <span className="hidden sm:inline">{n.label}</span>
+
             </div>
           </Html>
         </mesh>
