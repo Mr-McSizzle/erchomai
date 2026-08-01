@@ -123,16 +123,16 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
       </motion.div>
 
       {/* Scene 4 */}
-      <div className="absolute inset-0 flex flex-col items-start justify-end gap-2 px-8 pb-24 md:px-16 md:pb-28">
+      <div className="absolute inset-0 flex flex-col items-start justify-end gap-2 px-6 pb-24 md:px-16 md:pb-28">
         <motion.p
           style={{ opacity: s4a }}
-          className="text-left text-2xl font-extralight tracking-[0.02em] text-porcelain sm:text-3xl md:text-5xl"
+          className="text-left text-2xl font-extralight tracking-[0.02em] text-porcelain [text-shadow:0_2px_28px_rgba(11,11,11,0.95)] sm:text-3xl md:text-5xl"
         >
           Reality is expensive.
         </motion.p>
         <motion.p
           style={{ opacity: s4b }}
-          className="text-left text-2xl font-extralight tracking-[0.02em] text-titanium sm:text-3xl md:text-5xl"
+          className="text-left text-2xl font-extralight tracking-[0.02em] text-titanium [text-shadow:0_2px_28px_rgba(11,11,11,0.95)] sm:text-3xl md:text-5xl"
         >
           Simulation isn't.
         </motion.p>
@@ -141,12 +141,13 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
       {/* Scene 5 */}
       <motion.div
         style={{ opacity: s5 }}
-        className="absolute inset-y-0 right-0 flex w-full max-w-[46%] items-center justify-end px-6 md:px-12"
+        className="absolute inset-y-0 right-0 flex w-full max-w-[58%] items-center justify-end px-6 md:max-w-[46%] md:px-12"
       >
-        <p className="max-w-[12ch] text-right text-xl font-extralight leading-[1.2] tracking-[0.02em] text-porcelain sm:text-3xl md:text-4xl">
+        <p className="max-w-[12ch] text-right text-xl font-extralight leading-[1.2] tracking-[0.02em] text-porcelain [text-shadow:0_2px_28px_rgba(11,11,11,0.95)] sm:text-3xl md:text-4xl">
           One decision. <span className="text-titanium">Infinite computation.</span>
         </p>
       </motion.div>
+
 
       {/* Scene 6 */}
       <motion.ul
