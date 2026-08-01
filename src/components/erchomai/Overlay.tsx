@@ -49,18 +49,13 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-10 select-none">
-      {/* Persistent chrome */}
-      <motion.header
+      {/* Persistent chrome — sits clear of the global nav */}
+      <motion.span
         style={{ opacity: chrome }}
-        className="absolute inset-x-0 top-0 flex items-center justify-between px-6 py-6 md:px-12 md:py-8"
+        className="absolute bottom-8 left-6 hidden text-[10px] font-light uppercase tracking-[0.44em] text-titanium md:block md:left-12"
       >
-        <span className="text-[10px] font-light uppercase tracking-[0.44em] text-porcelain/70 md:text-[11px]">
-          Erchomai
-        </span>
-        <span className="text-[10px] font-light uppercase tracking-[0.44em] text-titanium md:text-[11px]">
-          Engineered Intelligence
-        </span>
-      </motion.header>
+        Engineered Intelligence
+      </motion.span>
 
       <motion.div
         style={{ opacity: hint }}
@@ -71,6 +66,7 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
         </span>
         <span className="h-10 w-px bg-gradient-to-b from-titanium/70 to-transparent" />
       </motion.div>
+
 
       {/* Scene 0 — Hero (split around the figure) */}
       <motion.div style={{ opacity: s0, y: s0y }} className="absolute inset-0">
