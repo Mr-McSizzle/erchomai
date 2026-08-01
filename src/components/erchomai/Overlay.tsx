@@ -184,13 +184,16 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
         <p className="mt-6 text-center text-[9px] font-light uppercase tracking-[0.4em] text-titanium md:mt-8 md:text-xs md:tracking-[0.52em]">
           The Future, Arrived.
         </p>
-        <Link
-          to="/contact"
-          className="group pointer-events-auto mt-12 inline-flex items-center gap-3 border border-porcelain/30 px-6 py-4 text-[9px] font-light uppercase tracking-[0.24em] text-porcelain transition-[background-color,border-color,color] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-emerald hover:bg-emerald hover:text-obsidian md:mt-14 md:px-12 md:py-5 md:text-xs md:tracking-[0.34em]"
-        >
-          Begin the Conversation
-          <ArrowUpRight className="size-3.5 transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </Link>
+        <Magnetic className="mt-12 inline-block md:mt-14">
+          <Link
+            to="/contact"
+            className="group pointer-events-auto inline-flex items-center gap-3 border border-porcelain/30 px-6 py-4 text-[9px] font-light uppercase tracking-[0.24em] text-porcelain transition-[background-color,border-color,color] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-emerald hover:bg-emerald hover:text-obsidian md:px-12 md:py-5 md:text-xs md:tracking-[0.34em]"
+          >
+            Begin the Conversation
+            <ArrowUpRight className="size-3.5 transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+        </Magnetic>
+
 
       </motion.div>
     </div>
