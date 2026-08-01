@@ -68,9 +68,12 @@ function WorkPage() {
       <section className="px-6 pb-16 pt-40 md:px-12 md:pb-24 md:pt-56">
         <Reveal>
           <Eyebrow>Selected Work</Eyebrow>
-          <h1 className="mt-8 max-w-[16ch] text-[12vw] font-extralight uppercase leading-[0.88] tracking-[-0.02em] md:text-[6.5vw]">
-            Systems in production.
-          </h1>
+          <Scramble
+            as="h1"
+            text="Systems in production."
+            className="mt-8 block max-w-[16ch] text-[12vw] font-extralight uppercase leading-[0.88] tracking-[-0.02em] md:text-[6.5vw]"
+          />
+
         </Reveal>
       </section>
 
