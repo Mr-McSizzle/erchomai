@@ -126,11 +126,12 @@ function WorkPage() {
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-emerald">
                 Case 02 / Telemetry
               </p>
-              <h2 className="mt-6 text-4xl font-extralight uppercase leading-[0.95] md:text-6xl">
-                Resqnet
-                <br />
-                OS
-              </h2>
+              <Scramble
+                as="h2"
+                text={"Resqnet\nOS"}
+                className="mt-6 block whitespace-pre-line text-4xl font-extralight uppercase leading-[0.95] md:text-6xl"
+              />
+
               <p className="mt-8 max-w-[52ch] text-sm font-light leading-relaxed text-titanium md:text-base">
                 Drone telemetry simulation and high-concurrency tracking. A fleet-scale ingest layer
                 holds hundreds of airframes in a single consistent world model, with sub-50ms tail
