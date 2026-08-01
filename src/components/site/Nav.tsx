@@ -32,25 +32,31 @@ export function Nav() {
       )}
     >
       <nav className="flex items-center justify-between gap-4 px-5 py-5 md:px-12">
-        <Link
-          to="/"
-          className="shrink-0 text-[10px] font-light uppercase tracking-[0.34em] text-porcelain transition-opacity hover:opacity-60 md:tracking-[0.5em]"
-        >
-          Erchomai
-        </Link>
+        <Magnetic>
+          <Link
+            to="/"
+            onClick={() => window.dispatchEvent(new Event(TERMINAL_PING))}
+            className="block shrink-0 text-[10px] font-light uppercase tracking-[0.34em] text-porcelain transition-opacity hover:opacity-60 md:tracking-[0.5em]"
+          >
+            Erchomai
+          </Link>
+        </Magnetic>
         <ul className="flex items-center gap-3.5 sm:gap-5 md:gap-9">
           {LINKS.map((l) => (
             <li key={l.to}>
-              <Link
-                to={l.to}
-                className="text-[9px] font-light uppercase tracking-[0.16em] sm:tracking-[0.28em] text-titanium transition-colors hover:text-porcelain md:text-[10px] md:tracking-[0.4em]"
-                activeProps={{ className: "!text-porcelain" }}
-              >
-                {l.label}
-              </Link>
+              <Magnetic>
+                <Link
+                  to={l.to}
+                  className="block text-[9px] font-light uppercase tracking-[0.16em] sm:tracking-[0.28em] text-titanium transition-colors hover:text-porcelain md:text-[10px] md:tracking-[0.4em]"
+                  activeProps={{ className: "!text-porcelain" }}
+                >
+                  {l.label}
+                </Link>
+              </Magnetic>
             </li>
           ))}
         </ul>
+
       </nav>
     </header>
   );
