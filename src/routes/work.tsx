@@ -84,11 +84,12 @@ function WorkPage() {
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-emerald">
                 Case 01 / Simulation
               </p>
-              <h2 className="mt-6 text-4xl font-extralight uppercase leading-[0.95] md:text-6xl">
-                Project
-                <br />
-                Pragati-Setu
-              </h2>
+              <Scramble
+                as="h2"
+                text={"Project\nPragati-Setu"}
+                className="mt-6 block whitespace-pre-line text-4xl font-extralight uppercase leading-[0.95] md:text-6xl"
+              />
+
               <p className="mt-8 max-w-[52ch] text-sm font-light leading-relaxed text-titanium md:text-base">
                 A macroeconomic simulation and analytical thinking model. Policy levers, capital
                 flows and demographic pressure are expressed as a single differentiable system, then
