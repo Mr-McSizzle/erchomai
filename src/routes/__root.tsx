@@ -14,6 +14,9 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav } from "../components/site/Nav";
 import { Cursor } from "../components/site/Cursor";
 import { AudioLayer } from "../components/site/AudioLayer";
+import { Grain } from "../components/site/Grain";
+import { HiddenTerminal } from "../components/site/HiddenTerminal";
+
 
 
 
@@ -133,7 +136,10 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AudioLayer />
       <Cursor />
+      <Grain />
+      <HiddenTerminal />
       <Nav />
+
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>

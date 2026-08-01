@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Page, Reveal, Eyebrow } from "@/components/site/Page";
+import { Scramble } from "@/components/site/Scramble";
+
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -66,9 +68,12 @@ function WorkPage() {
       <section className="px-6 pb-16 pt-40 md:px-12 md:pb-24 md:pt-56">
         <Reveal>
           <Eyebrow>Selected Work</Eyebrow>
-          <h1 className="mt-8 max-w-[16ch] text-[12vw] font-extralight uppercase leading-[0.88] tracking-[-0.02em] md:text-[6.5vw]">
-            Systems in production.
-          </h1>
+          <Scramble
+            as="h1"
+            text="Systems in production."
+            className="mt-8 block max-w-[16ch] text-[12vw] font-extralight uppercase leading-[0.88] tracking-[-0.02em] md:text-[6.5vw]"
+          />
+
         </Reveal>
       </section>
 
@@ -79,11 +84,12 @@ function WorkPage() {
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-emerald">
                 Case 01 / Simulation
               </p>
-              <h2 className="mt-6 text-4xl font-extralight uppercase leading-[0.95] md:text-6xl">
-                Project
-                <br />
-                Pragati-Setu
-              </h2>
+              <Scramble
+                as="h2"
+                text={"Project\nPragati-Setu"}
+                className="mt-6 block whitespace-pre-line text-4xl font-extralight uppercase leading-[0.95] md:text-6xl"
+              />
+
               <p className="mt-8 max-w-[52ch] text-sm font-light leading-relaxed text-titanium md:text-base">
                 A macroeconomic simulation and analytical thinking model. Policy levers, capital
                 flows and demographic pressure are expressed as a single differentiable system, then
@@ -120,11 +126,12 @@ function WorkPage() {
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-emerald">
                 Case 02 / Telemetry
               </p>
-              <h2 className="mt-6 text-4xl font-extralight uppercase leading-[0.95] md:text-6xl">
-                Resqnet
-                <br />
-                OS
-              </h2>
+              <Scramble
+                as="h2"
+                text={"Resqnet\nOS"}
+                className="mt-6 block whitespace-pre-line text-4xl font-extralight uppercase leading-[0.95] md:text-6xl"
+              />
+
               <p className="mt-8 max-w-[52ch] text-sm font-light leading-relaxed text-titanium md:text-base">
                 Drone telemetry simulation and high-concurrency tracking. A fleet-scale ingest layer
                 holds hundreds of airframes in a single consistent world model, with sub-50ms tail

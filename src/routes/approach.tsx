@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Page, Reveal, Eyebrow } from "@/components/site/Page";
+import { Scramble } from "@/components/site/Scramble";
+
 
 export const Route = createFileRoute("/approach")({
   head: () => ({
@@ -52,9 +54,12 @@ function ApproachPage() {
       <section className="px-6 pb-24 pt-40 md:px-12 md:pb-40 md:pt-56">
         <Reveal>
           <Eyebrow>The Loop</Eyebrow>
-          <h1 className="mt-8 max-w-[14ch] text-[13vw] font-extralight uppercase leading-[0.88] tracking-[-0.02em] md:text-[7vw]">
-            A method, not a service.
-          </h1>
+          <Scramble
+            as="h1"
+            text="A method, not a service."
+            className="mt-8 block max-w-[14ch] text-[13vw] font-extralight uppercase leading-[0.88] tracking-[-0.02em] md:text-[7vw]"
+          />
+
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-10 max-w-[46ch] text-sm font-light leading-relaxed text-titanium md:ml-[52%] md:mt-16 md:text-base">
@@ -71,9 +76,12 @@ function ApproachPage() {
               <p className="text-[10px] font-light tracking-[0.4em] text-titanium md:col-span-2">
                 {s.n}
               </p>
-              <h2 className="text-4xl font-extralight uppercase leading-[0.95] tracking-[-0.01em] md:col-span-5 md:text-6xl">
-                {s.title}
-              </h2>
+              <Scramble
+                as="h2"
+                text={s.title}
+                className="block text-4xl font-extralight uppercase leading-[0.95] tracking-[-0.01em] md:col-span-5 md:text-6xl"
+              />
+
               <p className="max-w-[48ch] text-sm font-light leading-relaxed text-titanium md:col-span-5 md:text-base">
                 {s.body}
               </p>
