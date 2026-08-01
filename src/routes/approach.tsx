@@ -76,9 +76,12 @@ function ApproachPage() {
               <p className="text-[10px] font-light tracking-[0.4em] text-titanium md:col-span-2">
                 {s.n}
               </p>
-              <h2 className="text-4xl font-extralight uppercase leading-[0.95] tracking-[-0.01em] md:col-span-5 md:text-6xl">
-                {s.title}
-              </h2>
+              <Scramble
+                as="h2"
+                text={s.title}
+                className="block text-4xl font-extralight uppercase leading-[0.95] tracking-[-0.01em] md:col-span-5 md:text-6xl"
+              />
+
               <p className="max-w-[48ch] text-sm font-light leading-relaxed text-titanium md:col-span-5 md:text-base">
                 {s.body}
               </p>
