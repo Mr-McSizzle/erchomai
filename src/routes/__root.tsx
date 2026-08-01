@@ -136,7 +136,10 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AudioLayer />
       <Cursor />
+      <Grain />
+      <HiddenTerminal />
       <Nav />
+
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
