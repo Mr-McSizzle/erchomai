@@ -1,6 +1,8 @@
 import { motion, useTransform, type MotionValue } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { EASE } from "./scroll";
+
 
 const CYCLE = ["Research", "Simulation", "Prediction", "Execution", "Feedback", "Research"];
 
