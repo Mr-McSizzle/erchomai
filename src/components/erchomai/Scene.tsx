@@ -70,16 +70,20 @@ export function Scene({ progressRef }: { progressRef: React.MutableRefObject<num
 
       <CameraRig progressRef={progressRef} />
 
-      <ambientLight intensity={0.35} />
-      <directionalLight position={[4, 6, 4]} intensity={1.5} color={PALETTE.porcelain} />
-      <directionalLight position={[-5, 2, -3]} intensity={0.6} color={PALETTE.titanium} />
+      {/* Chiaroscuro: near-zero fill, one piercing key, one cold rim. */}
+      <ambientLight intensity={0.06} />
+      <hemisphereLight args={[PALETTE.porcelain, PALETTE.obsidian, 0.12]} />
+      <directionalLight position={[4, 6, 4]} intensity={2.6} color={PALETTE.porcelain} />
+      <directionalLight position={[-5, 2, -3]} intensity={0.28} color={PALETTE.titanium} />
       <spotLight
         position={[0, 7, 3]}
-        angle={0.6}
-        penumbra={1}
-        intensity={12}
+        angle={0.42}
+        penumbra={0.85}
+        intensity={26}
         color={PALETTE.porcelain}
       />
+      <pointLight position={[-2.2, 1.2, 2.6]} intensity={3} distance={9} color={PALETTE.emerald} />
+
 
       <Figure progressRef={progressRef} />
       <Particles progressRef={progressRef} />
