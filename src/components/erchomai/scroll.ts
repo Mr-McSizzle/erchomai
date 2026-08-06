@@ -44,6 +44,19 @@ export const damp = (current: number, target: number, lambda: number, dt: number
 /** cubic-bezier(0.25, 1, 0.5, 1) approximation — precision easing, no bounce. */
 export const easeOutQuint = (t: number) => 1 - Math.pow(1 - clamp(t), 5);
 
+/**
+ * Ken Perlin's smootherstep. Zero first *and* second derivative at both ends,
+ * so chained segments join with no velocity or acceleration snap. This is the
+ * default easing for anything driven continuously by scroll.
+ */
+export const smoother = (t: number) => {
+  const x = clamp(t);
+  return x * x * x * (x * (x * 6 - 15) + 10);
+};
+
+/** Eased remap: range() + smootherstep, in one call. */
+export const ramp = (v: number, inMin: number, inMax: number) => smoother(range(v, inMin, inMax));
+
 export const EASE: [number, number, number, number] = [0.25, 1, 0.5, 1];
 
 export const PALETTE = {
