@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { PALETTE, range, clamp, easeOutQuint, damp, lerp } from "./scroll";
+import { PALETTE, ramp, clamp, damp, lerp } from "./scroll";
 
 /** A clean parametric meridian arc — armillary/Hadid style, no noise. */
 function Meridian({
@@ -57,10 +57,14 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
   const group = useRef<THREE.Group>(null);
   const shell = useRef<THREE.Group>(null);
   const ring = useRef<THREE.Group>(null);
-  const mats = useRef<THREE.MeshStandardMaterial[]>([]);
+  const shellMats = useRef<THREE.MeshStandardMaterial[]>([]);
+  const ringMats = useRef<THREE.MeshStandardMaterial[]>([]);
 
-  const addMat = (m: THREE.MeshStandardMaterial | null) => {
-    if (m && !mats.current.includes(m)) mats.current.push(m);
+  const addShell = (m: THREE.MeshStandardMaterial | null) => {
+    if (m && !shellMats.current.includes(m)) shellMats.current.push(m);
+  };
+  const addRing = (m: THREE.MeshStandardMaterial | null) => {
+    if (m && !ringMats.current.includes(m)) ringMats.current.push(m);
   };
 
   useFrame((state, dt) => {
@@ -68,42 +72,43 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
     const t = state.clock.elapsedTime;
     const d = Math.min(dt, 0.05);
 
-    const assemble = easeOutQuint(range(p, 0.36, 0.5));
-    const pulse = range(p, 0.55, 0.62) * (1 - range(p, 0.68, 0.74));
-    const ouroboros = easeOutQuint(range(p, 0.8, 0.92));
-    const compress = easeOutQuint(range(p, 0.93, 1));
+    const assemble = ramp(p, 0.34, 0.5);
+    const pulse = ramp(p, 0.54, 0.63) * (1 - ramp(p, 0.67, 0.75));
+    const ouroboros = ramp(p, 0.78, 0.92);
+    const compress = ramp(p, 0.92, 1);
     const opacity = clamp(assemble) * (1 - compress);
 
-    for (const m of mats.current) {
-      m.opacity = opacity * 0.62;
+    // Shell dissolves as the ring resolves — a crossfade, never a pop.
+    const shellFade = 1 - ramp(p, 0.79, 0.88);
+    for (const m of shellMats.current) {
+      m.opacity = opacity * 0.62 * shellFade;
       m.emissiveIntensity = 0.06 + pulse * (0.5 + Math.sin(t * 3.2) * 0.4);
     }
+    const ringFade = clamp(ouroboros * (1 - compress));
+    for (const m of ringMats.current) m.opacity = ringFade * 0.85;
 
     if (group.current) {
-      group.current.visible = opacity > 0.002;
+      group.current.visible = opacity > 0.002 || ringFade > 0.002;
       const s = lerp(0.7, 1, assemble) * (1 - compress * 0.98);
-      group.current.scale.setScalar(damp(group.current.scale.x, s, 6, d));
+      group.current.scale.setScalar(damp(group.current.scale.x, s, 5, d));
       group.current.rotation.y += d * (0.06 + ouroboros * 0.45);
     }
 
-    // Shell fades into the flat ring as the Ouroboros forms.
     if (shell.current) {
-      shell.current.visible = ouroboros < 0.4;
+      shell.current.visible = shellFade > 0.002 && opacity > 0.002;
       shell.current.scale.y = lerp(1, 0.06, ouroboros);
       shell.current.scale.x = shell.current.scale.z = lerp(1, 1.35, ouroboros);
-      shell.current.rotation.z = lerp(0, 0.0, ouroboros);
     }
     if (ring.current) {
-      const ro = ouroboros * (1 - compress);
       ring.current.scale.setScalar(lerp(0.4, 0.92, ouroboros));
-      ring.current.rotation.z += d * 0.25 * ro;
-      ring.current.visible = ro > 0.01;
+      ring.current.rotation.z += d * 0.25 * ringFade;
+      ring.current.visible = ringFade > 0.002;
     }
   });
 
   const titanium = (
     <meshStandardMaterial
-      ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
+      ref={(m) => addShell(m as THREE.MeshStandardMaterial)}
       color={PALETTE.titanium}
       emissive={PALETTE.titanium}
       emissiveIntensity={0.06}
@@ -140,7 +145,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
         <mesh>
           <torusGeometry args={[1.2, 0.012, 24, 400]} />
           <meshStandardMaterial
-            ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
+            ref={(m) => addRing(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
             emissiveIntensity={1.6}
@@ -153,7 +158,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
         <mesh scale={0.82}>
           <torusGeometry args={[1.2, 0.004, 16, 300]} />
           <meshStandardMaterial
-            ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
+            ref={(m) => addRing(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
             emissiveIntensity={1.1}

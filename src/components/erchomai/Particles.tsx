@@ -2,7 +2,7 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import * as THREE from "three";
-import { PALETTE, range, clamp, easeOutQuint } from "./scroll";
+import { PALETTE, ramp, clamp } from "./scroll";
 
 export const BRAIN = new THREE.Vector3(0, 1.55, 0);
 
@@ -74,14 +74,15 @@ export function Particles({ progressRef }: { progressRef: React.MutableRefObject
     const p = progressRef.current;
     const t = state.clock.elapsedTime;
 
-    // Morph weights
-    const wBeam = easeOutQuint(range(p, 0.24, 0.36));
-    const wCollapse = easeOutQuint(range(p, 0.7, 0.775));
+    // Morph weights — smootherstep so particles ease out of one formation and
+    // into the next with no velocity snap at the boundaries.
+    const wBeam = ramp(p, 0.22, 0.36);
+    const wCollapse = ramp(p, 0.685, 0.78);
     // Visibility envelope
-    const fadeIn = range(p, 0.05, 0.16);
-    const fadeOut = 1 - range(p, 0.8, 0.9);
+    const fadeIn = ramp(p, 0.04, 0.17);
+    const fadeOut = 1 - ramp(p, 0.79, 0.91);
     // Recede while the synthetic world takes the stage, return for the collapse.
-    const recede = 1 - range(p, 0.44, 0.55) * 0.72 * (1 - range(p, 0.66, 0.72));
+    const recede = 1 - ramp(p, 0.42, 0.56) * 0.72 * (1 - ramp(p, 0.64, 0.73));
     const opacity = clamp(fadeIn * fadeOut * recede);
 
 
@@ -154,8 +155,8 @@ export function Nodes({ progressRef }: { progressRef: React.MutableRefObject<num
   useFrame((state) => {
     const p = progressRef.current;
     const t = state.clock.elapsedTime;
-    const appear = easeOutQuint(range(p, 0.24, 0.34));
-    const vanish = 1 - range(p, 0.36, 0.44);
+    const appear = ramp(p, 0.23, 0.325);
+    const vanish = 1 - ramp(p, 0.35, 0.45);
     const o = clamp(appear * vanish);
     for (const m of mats.current) m.opacity = o;
     for (const el of labels.current) {

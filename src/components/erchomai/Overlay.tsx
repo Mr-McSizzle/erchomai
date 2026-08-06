@@ -8,45 +8,60 @@ import { Magnetic } from "@/components/site/Magnetic";
 
 const CYCLE = ["Research", "Simulation", "Prediction", "Execution", "Feedback", "Research"];
 
-/** Fades a layer in over [a,b] and out over [c,d]. */
+/** Perlin smootherstep — matches the easing used by the 3D layer exactly. */
+const smoother = (t: number) => t * t * t * (t * (t * 6 - 15) + 10);
+const E3 = [smoother, smoother, smoother];
+const E1 = [smoother];
+
+/** Fades a layer in over [a,b] and out over [c,d], eased on both edges. */
 function useWindowOpacity(p: MotionValue<number>, a: number, b: number, c: number, d: number) {
-  return useTransform(p, [a, b, c, d], [0, 1, 1, 0], { clamp: true });
+  return useTransform(p, [a, b, c, d], [0, 1, 1, 0], { clamp: true, ease: E3 });
+}
+
+/** Gentle parallax drift so copy glides with the camera instead of blinking. */
+function useDrift(p: MotionValue<number>, a: number, d: number, amount = 22) {
+  return useTransform(p, [a, d], [amount, -amount], { clamp: true, ease: E1 });
 }
 
 export function Overlay({ progress }: { progress: MotionValue<number> }) {
   // Scene 1 — Consciousness
-  const s1 = useWindowOpacity(progress, 0.08, 0.15, 0.22, 0.27);
-  const s1y = useTransform(progress, [0.08, 0.27], [16, -16]);
+  const s1 = useWindowOpacity(progress, 0.075, 0.15, 0.225, 0.275);
+  const s1y = useDrift(progress, 0.075, 0.275, 18);
 
   // Scene 2 — Intelligence (section eyebrow only; node labels live in 3D)
-  const s2 = useWindowOpacity(progress, 0.24, 0.3, 0.36, 0.41);
+  const s2 = useWindowOpacity(progress, 0.235, 0.3, 0.36, 0.415);
+  const s2y = useDrift(progress, 0.235, 0.415, 12);
 
   // Scene 3 — Exoskeleton
-  const s3 = useWindowOpacity(progress, 0.39, 0.45, 0.52, 0.57);
+  const s3 = useWindowOpacity(progress, 0.385, 0.45, 0.52, 0.575);
+  const s3y = useDrift(progress, 0.385, 0.575, 16);
 
   // Scene 4 — Synthetic world
-  const s4a = useWindowOpacity(progress, 0.54, 0.6, 0.66, 0.71);
-  const s4b = useWindowOpacity(progress, 0.585, 0.635, 0.66, 0.71);
+  const s4a = useWindowOpacity(progress, 0.535, 0.6, 0.665, 0.715);
+  const s4b = useWindowOpacity(progress, 0.58, 0.64, 0.665, 0.715);
+  const s4y = useDrift(progress, 0.535, 0.715, 20);
 
   // Scene 5 — Decision
-  const s5 = useWindowOpacity(progress, 0.7, 0.75, 0.8, 0.84);
+  const s5 = useWindowOpacity(progress, 0.695, 0.75, 0.8, 0.845);
+  const s5y = useDrift(progress, 0.695, 0.845, 16);
 
   // Scene 6 — Ouroboros
-  const s6 = useWindowOpacity(progress, 0.8, 0.86, 0.92, 0.955);
+  const s6 = useWindowOpacity(progress, 0.795, 0.86, 0.915, 0.955);
+  const s6y = useDrift(progress, 0.795, 0.955, 14);
 
   // Scene 7 — Logo
-  const s7 = useTransform(progress, [0.955, 0.985], [0, 1], { clamp: true });
-  const s7y = useTransform(progress, [0.955, 1], [22, 0]);
-  const logoTrack = useTransform(progress, [0.955, 1], ["0.62em", "0.34em"]);
+  const s7 = useTransform(progress, [0.945, 0.99], [0, 1], { clamp: true, ease: E1 });
+  const s7y = useTransform(progress, [0.945, 1], [26, 0], { clamp: true, ease: E1 });
+  const logoTrack = useTransform(progress, [0.945, 1], ["0.62em", "0.34em"], { ease: E1 });
 
   // Scene 0 — Hero
-  const s0 = useTransform(progress, [0, 0.035, 0.075], [1, 1, 0], { clamp: true });
-  const s0y = useTransform(progress, [0, 0.075], [0, -28]);
-  const heroTrack = useTransform(progress, [0, 0.075], ["0.16em", "0.3em"]);
+  const s0 = useTransform(progress, [0, 0.03, 0.08], [1, 1, 0], { clamp: true, ease: E3.slice(0, 2) });
+  const s0y = useTransform(progress, [0, 0.08], [0, -30], { clamp: true, ease: E1 });
+  const heroTrack = useTransform(progress, [0, 0.08], ["0.16em", "0.3em"], { ease: E1 });
 
   // Persistent chrome
-  const chrome = useTransform(progress, [0, 0.03, 0.94, 0.97], [1, 1, 1, 0], { clamp: true });
-  const hint = useTransform(progress, [0, 0.02, 0.05], [1, 1, 0], { clamp: true });
+  const chrome = useTransform(progress, [0, 0.03, 0.94, 0.97], [1, 1, 1, 0], { clamp: true, ease: E3 });
+  const hint = useTransform(progress, [0, 0.02, 0.055], [1, 1, 0], { clamp: true, ease: E3.slice(0, 2) });
 
 
   const t = { duration: 0.8, ease: EASE };
@@ -105,7 +120,7 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
 
       {/* Scene 2 */}
       <motion.div
-        style={{ opacity: s2 }}
+        style={{ opacity: s2, y: s2y }}
         className="absolute inset-x-0 top-[18%] flex justify-center px-8"
       >
         <p className="text-[10px] font-light uppercase tracking-[0.5em] text-titanium md:text-[11px]">
@@ -115,7 +130,7 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
 
       {/* Scene 3 */}
       <motion.div
-        style={{ opacity: s3 }}
+        style={{ opacity: s3, y: s3y }}
         className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-8 px-6 pb-12 md:px-12 md:pb-16"
       >
         <p className="max-w-[8ch] text-left text-lg font-extralight leading-tight tracking-[0.04em] text-porcelain md:max-w-none md:text-3xl">
@@ -127,7 +142,10 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
       </motion.div>
 
       {/* Scene 4 */}
-      <div className="absolute inset-0 flex flex-col items-start justify-end gap-2 px-6 pb-24 md:px-16 md:pb-28">
+      <motion.div
+        style={{ y: s4y }}
+        className="absolute inset-0 flex flex-col items-start justify-end gap-2 px-6 pb-24 md:px-16 md:pb-28"
+      >
         <motion.p
           style={{ opacity: s4a }}
           className="text-left text-2xl font-extralight tracking-[0.02em] text-porcelain [text-shadow:0_2px_28px_rgba(11,11,11,0.95)] sm:text-3xl md:text-5xl"
@@ -140,11 +158,11 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
         >
           Simulation isn't.
         </motion.p>
-      </div>
+      </motion.div>
 
       {/* Scene 5 */}
       <motion.div
-        style={{ opacity: s5 }}
+        style={{ opacity: s5, y: s5y }}
         className="absolute inset-y-0 right-0 flex w-full max-w-[58%] items-center justify-end px-6 md:max-w-[46%] md:px-12"
       >
         <p className="max-w-[12ch] text-right text-xl font-extralight leading-[1.2] tracking-[0.02em] text-porcelain [text-shadow:0_2px_28px_rgba(11,11,11,0.95)] sm:text-3xl md:text-4xl">
@@ -154,21 +172,20 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
 
 
       {/* Scene 6 */}
-      <motion.ul
-        style={{ opacity: s6 }}
-        className="absolute left-6 top-1/2 -translate-y-1/2 space-y-3 md:left-12 md:space-y-4"
-      >
-        {CYCLE.map((item, i) => (
-          <li
-            key={`${item}-${i}`}
-            className="flex items-center gap-3 text-[10px] font-light uppercase tracking-[0.36em] md:text-xs"
-            style={{ opacity: i === CYCLE.length - 1 ? 0.35 : 1 - i * 0.08 }}
-          >
-            <span className="h-px w-4 bg-titanium/60 md:w-6" />
-            <span className={i === 0 ? "text-porcelain" : "text-titanium"}>{item}</span>
-          </li>
-        ))}
-      </motion.ul>
+      <div className="absolute left-6 top-1/2 -translate-y-1/2 md:left-12">
+        <motion.ul style={{ opacity: s6, y: s6y }} className="space-y-3 md:space-y-4">
+          {CYCLE.map((item, i) => (
+            <li
+              key={`${item}-${i}`}
+              className="flex items-center gap-3 text-[10px] font-light uppercase tracking-[0.36em] md:text-xs"
+              style={{ opacity: i === CYCLE.length - 1 ? 0.35 : 1 - i * 0.08 }}
+            >
+              <span className="h-px w-4 bg-titanium/60 md:w-6" />
+              <span className={i === 0 ? "text-porcelain" : "text-titanium"}>{item}</span>
+            </li>
+          ))}
+        </motion.ul>
+      </div>
 
       {/* Scene 7 */}
       <motion.div
