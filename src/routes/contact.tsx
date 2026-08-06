@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Page, Reveal, Eyebrow } from "@/components/site/Page";
+import { Magnetic } from "@/components/site/Magnetic";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({

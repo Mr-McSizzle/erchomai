@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Page, Reveal, Eyebrow } from "@/components/site/Page";
+import { Scramble } from "@/components/site/Scramble";
 
 export const Route = createFileRoute("/about")({
   head: () => ({

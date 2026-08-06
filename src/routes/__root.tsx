@@ -16,6 +16,7 @@ import { Cursor } from "../components/site/Cursor";
 import { AudioLayer } from "../components/site/AudioLayer";
 import { Grain } from "../components/site/Grain";
 import { HiddenTerminal } from "../components/site/HiddenTerminal";
+import { ScrollProgress } from "../components/site/ScrollProgress";
 
 
 
