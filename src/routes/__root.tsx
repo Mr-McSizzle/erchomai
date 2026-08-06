@@ -147,6 +147,7 @@ function RootComponent() {
       <AudioLayer />
       <Cursor />
       <Grain />
+      <ScrollProgress />
       <HiddenTerminal />
       <Nav />
 

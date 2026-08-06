@@ -31,14 +31,13 @@ function AboutPage() {
         <Reveal>
           <Eyebrow>Philosophy</Eyebrow>
           <h1 className="mt-10 text-[14vw] font-extralight uppercase leading-[0.82] tracking-[-0.03em] md:text-[9vw]">
-            The human
-            <br />
-            <span className="text-titanium">never changes.</span>
-            <br />
-            The world does.
+            <Scramble text="The human" className="block" />
+            <Scramble text="never changes." className="block text-titanium" />
+            <Scramble text="The world does." className="block" />
           </h1>
         </Reveal>
       </section>
+
 
       <section className="grid gap-12 border-y border-porcelain/10 px-6 py-20 md:grid-cols-2 md:gap-24 md:px-12 md:py-32">
         <Reveal>
