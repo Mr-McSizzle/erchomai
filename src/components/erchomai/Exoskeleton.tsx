@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { PALETTE, range, clamp, easeOutQuint, damp, lerp } from "./scroll";
+import { PALETTE, ramp, clamp, damp, lerp } from "./scroll";
 
 /** A clean parametric meridian arc — armillary/Hadid style, no noise. */
 function Meridian({
@@ -108,7 +108,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
 
   const titanium = (
     <meshStandardMaterial
-      ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
+      ref={(m) => addShell(m as THREE.MeshStandardMaterial)}
       color={PALETTE.titanium}
       emissive={PALETTE.titanium}
       emissiveIntensity={0.06}
@@ -145,7 +145,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
         <mesh>
           <torusGeometry args={[1.2, 0.012, 24, 400]} />
           <meshStandardMaterial
-            ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
+            ref={(m) => addRing(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
             emissiveIntensity={1.6}
@@ -158,7 +158,7 @@ export function Exoskeleton({ progressRef }: { progressRef: React.MutableRefObje
         <mesh scale={0.82}>
           <torusGeometry args={[1.2, 0.004, 16, 300]} />
           <meshStandardMaterial
-            ref={(m) => addMat(m as THREE.MeshStandardMaterial)}
+            ref={(m) => addRing(m as THREE.MeshStandardMaterial)}
             color={PALETTE.titanium}
             emissive={PALETTE.titanium}
             emissiveIntensity={1.1}
