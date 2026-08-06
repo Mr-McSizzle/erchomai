@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { PALETTE, range, clamp, easeOutQuint } from "./scroll";
+import { PALETTE, range, ramp, clamp } from "./scroll";
 import { BRAIN } from "./Particles";
 
 /**
@@ -51,8 +51,8 @@ export function SyntheticWorld({ progressRef }: { progressRef: React.MutableRefO
   useFrame((state) => {
     const p = progressRef.current;
     const t = state.clock.elapsedTime;
-    const appear = easeOutQuint(range(p, 0.5, 0.62));
-    const vanish = 1 - easeOutQuint(range(p, 0.7, 0.775));
+    const appear = ramp(p, 0.48, 0.62);
+    const vanish = 1 - ramp(p, 0.69, 0.79);
     const o = clamp(appear * vanish);
     for (const m of mats.current) (m as THREE.Material & { opacity: number }).opacity = o * 0.34;
     if (group.current) {
@@ -140,8 +140,8 @@ export function DecisionBeam({ progressRef }: { progressRef: React.MutableRefObj
 
   useFrame(() => {
     const p = progressRef.current;
-    const strike = easeOutQuint(range(p, 0.72, 0.775));
-    const out = 1 - range(p, 0.8, 0.86);
+    const strike = ramp(p, 0.71, 0.785);
+    const out = 1 - ramp(p, 0.79, 0.87);
     const o = clamp(strike * out);
     if (mat.current) mat.current.opacity = o;
     if (mesh.current) {

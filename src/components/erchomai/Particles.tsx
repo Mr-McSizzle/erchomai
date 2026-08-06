@@ -2,7 +2,7 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import * as THREE from "three";
-import { PALETTE, range, ramp, clamp, easeOutQuint } from "./scroll";
+import { PALETTE, ramp, clamp } from "./scroll";
 
 export const BRAIN = new THREE.Vector3(0, 1.55, 0);
 
