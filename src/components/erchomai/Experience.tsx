@@ -59,6 +59,7 @@ export function Experience() {
     let raf = 0;
     let last = performance.now();
     let prev = 0;
+    let stage1 = 0;
 
     const read = () => {
       const el = scroller.current;
@@ -71,8 +72,11 @@ export function Experience() {
       raf = requestAnimationFrame(loop);
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
-      // High mass, high friction. No spring, no overshoot.
-      smoothProgress.current = damp(smoothProgress.current, rawProgress.current, 4.2, dt);
+      // Two-stage damping. The first pass kills wheel/trackpad quantisation,
+      // the second gives the whole rig its mass. Result: C1-smooth progress,
+      // no stepping on discrete wheel devices, still zero overshoot.
+      stage1 = damp(stage1, rawProgress.current, 9, dt);
+      smoothProgress.current = damp(smoothProgress.current, stage1, 4.6, dt);
       const v = (smoothProgress.current - prev) / (dt || 1 / 60);
       prev = smoothProgress.current;
       scrollStore.progress = smoothProgress.current;
