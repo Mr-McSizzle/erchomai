@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Page, Reveal, Eyebrow } from "@/components/site/Page";
+import { Magnetic } from "@/components/site/Magnetic";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -55,12 +56,14 @@ function ContactPage() {
               Bring a problem with constraints. We will tell you whether it can be simulated before
               anyone writes a line of production code.
             </p>
-            <a
-              href="mailto:krishmehan24@gmail.com?subject=Consultation"
-              className="inline-flex items-center justify-center border border-porcelain/25 px-10 py-5 text-[10px] font-light uppercase tracking-[0.45em] text-porcelain transition-colors duration-300 hover:border-emerald hover:bg-emerald hover:text-obsidian"
-            >
-              Book a Consultation
-            </a>
+            <Magnetic>
+              <a
+                href="mailto:krishmehan24@gmail.com?subject=Consultation"
+                className="inline-flex items-center justify-center border border-porcelain/25 px-10 py-5 text-[10px] font-light uppercase tracking-[0.45em] text-porcelain transition-colors duration-300 hover:border-emerald hover:bg-emerald hover:text-obsidian"
+              >
+                Book a Consultation
+              </a>
+            </Magnetic>
           </div>
         </Reveal>
       </section>

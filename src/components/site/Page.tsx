@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
+import { Footer } from "@/components/site/Footer";
 
 const EASE: [number, number, number, number] = [0.25, 1, 0.5, 1];
 
@@ -10,9 +11,10 @@ export function Page({ children }: { children: ReactNode }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.7, ease: EASE }}
-      className="min-h-screen w-full bg-obsidian text-porcelain"
+      className="flex min-h-screen w-full flex-col bg-obsidian text-porcelain"
     >
-      {children}
+      <div className="flex-1">{children}</div>
+      <Footer />
     </motion.main>
   );
 }
