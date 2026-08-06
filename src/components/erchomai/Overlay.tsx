@@ -172,21 +172,20 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
 
 
       {/* Scene 6 */}
-      <motion.ul
-        style={{ opacity: s6 }}
-        className="absolute left-6 top-1/2 -translate-y-1/2 space-y-3 md:left-12 md:space-y-4"
-      >
-        {CYCLE.map((item, i) => (
-          <li
-            key={`${item}-${i}`}
-            className="flex items-center gap-3 text-[10px] font-light uppercase tracking-[0.36em] md:text-xs"
-            style={{ opacity: i === CYCLE.length - 1 ? 0.35 : 1 - i * 0.08 }}
-          >
-            <span className="h-px w-4 bg-titanium/60 md:w-6" />
-            <span className={i === 0 ? "text-porcelain" : "text-titanium"}>{item}</span>
-          </li>
-        ))}
-      </motion.ul>
+      <div className="absolute left-6 top-1/2 -translate-y-1/2 md:left-12">
+        <motion.ul style={{ opacity: s6, y: s6y }} className="space-y-3 md:space-y-4">
+          {CYCLE.map((item, i) => (
+            <li
+              key={`${item}-${i}`}
+              className="flex items-center gap-3 text-[10px] font-light uppercase tracking-[0.36em] md:text-xs"
+              style={{ opacity: i === CYCLE.length - 1 ? 0.35 : 1 - i * 0.08 }}
+            >
+              <span className="h-px w-4 bg-titanium/60 md:w-6" />
+              <span className={i === 0 ? "text-porcelain" : "text-titanium"}>{item}</span>
+            </li>
+          ))}
+        </motion.ul>
+      </div>
 
       {/* Scene 7 */}
       <motion.div
