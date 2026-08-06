@@ -120,7 +120,7 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
 
       {/* Scene 2 */}
       <motion.div
-        style={{ opacity: s2 }}
+        style={{ opacity: s2, y: s2y }}
         className="absolute inset-x-0 top-[18%] flex justify-center px-8"
       >
         <p className="text-[10px] font-light uppercase tracking-[0.5em] text-titanium md:text-[11px]">
@@ -130,7 +130,7 @@ export function Overlay({ progress }: { progress: MotionValue<number> }) {
 
       {/* Scene 3 */}
       <motion.div
-        style={{ opacity: s3 }}
+        style={{ opacity: s3, y: s3y }}
         className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-8 px-6 pb-12 md:px-12 md:pb-16"
       >
         <p className="max-w-[8ch] text-left text-lg font-extralight leading-tight tracking-[0.04em] text-porcelain md:max-w-none md:text-3xl">
