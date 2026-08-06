@@ -5,7 +5,7 @@ import { Figure } from "./Figure";
 import { Particles, Nodes } from "./Particles";
 import { Exoskeleton } from "./Exoskeleton";
 import { SyntheticWorld, DecisionBeam } from "./SyntheticWorld";
-import { PALETTE, damp, range, ramp, lerp } from "./scroll";
+import { PALETTE, damp, ramp, lerp } from "./scroll";
 
 /** Cinematic camera rig — one continuous, high-mass move across all 7 scenes. */
 function CameraRig({ progressRef }: { progressRef: React.MutableRefObject<number> }) {
