@@ -46,16 +46,19 @@ function CameraRig({ progressRef }: { progressRef: React.MutableRefObject<number
     camera.position.z = damp(camera.position.z, pz, 2.6, d);
 
     target.current.set(
-      damp(target.current.x, lerp(at[0], bt[0], t), 3.2, d),
-      damp(target.current.y, lerp(at[1], bt[1], t), 3.2, d),
-      damp(target.current.z, lerp(at[2], bt[2], t), 3.2, d),
+      damp(target.current.x, lerp(at[0], bt[0], t), 2.6, d),
+      damp(target.current.y, lerp(at[1], bt[1], t), 2.6, d),
+      damp(target.current.z, lerp(at[2], bt[2], t), 2.6, d),
     );
     camera.lookAt(target.current);
 
     const cam = camera as THREE.PerspectiveCamera;
-    const fov = mobile ? 52 : 38;
-    if (cam.fov !== fov) {
-      cam.fov = fov;
+    // Slight breathing of the lens: widens through the synthetic world, tightens
+    // for the decision strike. Damped so a resize never snaps the framing.
+    const fovTarget = (mobile ? 52 : 38) + ramp(p, 0.42, 0.62) * 4 - ramp(p, 0.68, 0.78) * 5;
+    const next = damp(cam.fov, fovTarget, 2.2, d);
+    if (Math.abs(next - cam.fov) > 0.0005) {
+      cam.fov = next;
       cam.updateProjectionMatrix();
     }
   });
