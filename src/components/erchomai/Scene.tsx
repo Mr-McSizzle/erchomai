@@ -5,7 +5,7 @@ import { Figure } from "./Figure";
 import { Particles, Nodes } from "./Particles";
 import { Exoskeleton } from "./Exoskeleton";
 import { SyntheticWorld, DecisionBeam } from "./SyntheticWorld";
-import { PALETTE, damp, range, easeOutQuint, lerp } from "./scroll";
+import { PALETTE, damp, range, ramp, lerp } from "./scroll";
 
 /** Cinematic camera rig — one continuous, high-mass move across all 7 scenes. */
 function CameraRig({ progressRef }: { progressRef: React.MutableRefObject<number> }) {
@@ -34,15 +34,16 @@ function CameraRig({ progressRef }: { progressRef: React.MutableRefObject<number
     while (i < keys.length - 2 && p > keys[i + 1][0]) i++;
     const [p0, a, at] = keys[i];
     const [p1, b, bt] = keys[i + 1];
-    const t = easeOutQuint(range(p, p0, p1));
+    // Smootherstep: zero velocity at every keyframe, so segments join invisibly.
+    const t = ramp(p, p0, p1);
 
     const px = lerp(a[0], b[0], t) * widen;
     const py = lerp(a[1], b[1], t);
     const pz = lerp(a[2], b[2], t) * widen;
 
-    camera.position.x = damp(camera.position.x, px, 3.2, d);
-    camera.position.y = damp(camera.position.y, py, 3.2, d);
-    camera.position.z = damp(camera.position.z, pz, 3.2, d);
+    camera.position.x = damp(camera.position.x, px, 2.6, d);
+    camera.position.y = damp(camera.position.y, py, 2.6, d);
+    camera.position.z = damp(camera.position.z, pz, 2.6, d);
 
     target.current.set(
       damp(target.current.x, lerp(at[0], bt[0], t), 3.2, d),
